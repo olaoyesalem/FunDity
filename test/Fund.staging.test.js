@@ -5,12 +5,12 @@ const { developmentChains, networkConfig } = require('../helper-hardhat.config')
 developmentChains.includes(network.name)
     ? describe.skip
     : describe('FundMe', function () {
-          console.log(' 31337 ')
+          
           const sendValue = ethers.utils.parseEther('1')
-          let startingFundMeBalance, endingFundMeBalance
+          let  endingFundMeBalance
           beforeEach(async function () {
               const chainId = network.config.chainId
-              ethUsdPriceAddress = networkConfig[chainId]
+              ethUsdPriceAddress = networkConfig[chainId]["ethUsdPriceAddress"]
               console.log(ethUsdPriceAddress)
               const FundMeContractFactory = await ethers.getContractFactory(
                   "FundMe"

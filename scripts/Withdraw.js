@@ -5,7 +5,7 @@ const { networkConfig } = require("../helper-hardhat.config");
 
 async function main(){
     const chainId = network.config.chainId;
-    const args = networkConfig[chainId];
+    const args = networkConfig[chainId]["ethUsdPriceFeed"];
     const fundMeFactory = await getContractFactory("FundMe");
     console.log("Deploying......")
     const FundMe = await fundMeFactory.deploy(args);

@@ -8,7 +8,7 @@
 * [Status](#status)
 
 ## General info
-Fundity is a unique crowdfunding webiste that allows users to fund am account for specific use. It also comes with a contract creator with which yoy can use to contract where other people can also crowd fund. The funds are saved on the blockchain 
+Fundity is a unique crowdfunding webiste that allows users to fund am account for specific use. It also comes with a contract creator with which users can use to contract where other people can also crowd fund. The funds are saved on the blockchain 
 
 ## Technologies
 * Solidity
@@ -24,7 +24,8 @@ Fundity is a unique crowdfunding webiste that allows users to fund am account fo
 
 
 ## Status
-This project is completed
+This project is still under development
+
 
 
 

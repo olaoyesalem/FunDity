@@ -1,6 +1,6 @@
 const { ethers, run, network } = require('hardhat')
 const { networkConfig } = require('../helper-hardhat.config')
-const{verify}= require("././utils/verify.js")
+
 
 const DECIMALS = 8
 const INITIAL_ANSWER = 200000000000
@@ -20,10 +20,10 @@ async function main() {
         await MockV3Aggregator.deployed
         console.log(`Deployed!!!!! to ${MockV3Aggregator.address}`)
     } else if (chainId !== '31337') {
-        console.log('before args')
+   
         args = networkConfig[chainId]
         console.log(args)
-        console.log('After ARGS')
+
         const fundMeFactory = await ethers.getContractFactory('FundMe')
         console.log('Deploying.......')
         const FundMe = await fundMeFactory.deploy(
@@ -34,10 +34,28 @@ async function main() {
         if (process.env.ETHERSCAN_API_KEY) {
         }
         verify(FundMeAddress, args)
+        console.log("Verified")
     }
 }
 
 console.log('Deployed..')
+
+async function verify(contractAddress, args) {
+    console.log('verifying....')
+
+    try {
+        await run('verify:verify', {
+            address: contractAddress,
+            constructorArguments: args,
+        })
+    } catch (e) {
+        if (e.message.toLowerCase().includes('already verified')) {
+            console.log('Already Verified')
+        } else {
+            console.log(e)
+        }
+    }
+}
 
 
 main()

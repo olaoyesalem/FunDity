@@ -1,6 +1,6 @@
 const { ethers, run, network } = require('hardhat')
 const { networkConfig } = require('../helper-hardhat.config')
-const{verify}= require("./utils/verify.js")
+const{verify}= require("././utils/verify.js")
 
 const DECIMALS = 8
 const INITIAL_ANSWER = 200000000000

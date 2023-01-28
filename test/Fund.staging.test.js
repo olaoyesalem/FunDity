@@ -2,7 +2,7 @@ const { assert } = require('chai')
 const { network, ethers } = require('hardhat')
 const { developmentChains, networkConfig } = require('../helper-hardhat.config')
 
-!developmentChains.includes(network.name)
+developmentChains.includes(network.name)
     ? describe.skip
     : describe('FundMe', function () {
           console.log(' 31337 ')
@@ -11,8 +11,9 @@ const { developmentChains, networkConfig } = require('../helper-hardhat.config')
           beforeEach(async function () {
               const chainId = network.config.chainId
               ethUsdPriceAddress = networkConfig[chainId]
+              console.log(ethUsdPriceAddress)
               const FundMeContractFactory = await ethers.getContractFactory(
-                  'FundMe'
+                  "FundMe"
               )
               const FundMe = await FundMeContractFactory.deploy(
                   ethUsdPriceAddress

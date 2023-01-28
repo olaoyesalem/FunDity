@@ -4,7 +4,6 @@ const { developmentChains,DECIMALS,INITIAL_ANSWER } = require("../helper-hardhat
 module.exports = async({getNamedAccounts, deployments})=>{// on local host
     const{log,deploy}= deployments
     const {deployer} = await getNamedAccounts()
-    const chainId = network.config.chainId;
 
     if(developmentChains==(network.name)){
         log("Local Network detected!!!!....!!!!");

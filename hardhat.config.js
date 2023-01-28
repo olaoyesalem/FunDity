@@ -1,5 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
+require('hardhat-deploy');
 
 /** @type import('hardhat/config').HardhatUserConfig */
 const LOCAL_HOST_URL = process.env.LOCAL_HOST_URL;

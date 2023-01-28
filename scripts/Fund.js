@@ -4,8 +4,8 @@ const {networkConfig}= require("../helper-hardhat.config");
 async function main(){
     const chainId = network.config.chainId;
     console.log(chainId)
-    const args = networkConfig[chainId]
-    const sendValue=100000000000000000;
+    const args = networkConfig[chainId]["ethUsdPriceFeed"]
+    const sendValue=10;
     console.log(args)
     const fundMeFactory = await ethers.getContractFactory("FundMe")
     console.log("Deploying.......");

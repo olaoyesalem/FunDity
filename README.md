@@ -1,13 +1,31 @@
-# Sample Hardhat Project
+# FunDity✔✔🎗💰
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## **Table Of Contents**
 
-Try running some of the following tasks:
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Contributors](#contributors)
+* [Status](#status)
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+## General info
+Fundity is a unique crowdfunding webiste that allows users to fund am account for specific use. It also comes with a contract creator with which yoy can use to contract where other people can also crowd fund. The funds are saved on the blockchain 
+
+## Technologies
+* Solidity
+* Remix-IDE
+
+
+
+## Contributors
+
+* github.com/olaoyesalem.com
+<br>  olaoyesalemgreat@gmail.com
+
+
+
+## Status
+This project is completed
+
+
+
+

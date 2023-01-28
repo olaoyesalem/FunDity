@@ -24,7 +24,8 @@ Fundity is a unique crowdfunding webiste that allows users to fund am account fo
 
 
 ## Status
-This project is completed
+This project is still under development
+
 
 
 

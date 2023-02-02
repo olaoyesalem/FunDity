@@ -26,7 +26,7 @@ async function fund(){
     if(typeof window.ethereum !=="undefined"){
         const provider = new ethers.Providers.web3Provider(window.ethereum)
         const signer = provider.getSigner()
-        c
+        const contract = new ethers.Contract(abi,);
     }
 
 }

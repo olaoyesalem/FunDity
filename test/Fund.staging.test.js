@@ -17,10 +17,10 @@ developmentChains.includes(network.name)
               )
               console.log("Deploying ..........")
                FundMe = await FundMeContractFactory.deploy(
-                "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e"
+                args
               )
               await FundMe.deployed
-              console.log(`Deployed To ${FundMe.address}`)
+              console.log(`Deployed To ${FundMe.address} `)
           });
           it(' should allow people to fund', async function () {
               await FundMe.Fund({ value: sendValue })
@@ -31,6 +31,7 @@ developmentChains.includes(network.name)
               await FundMe.withdraw()
               endingFundMeBalance = await ethers.provider.getBalance(
                   FundMe.address
+            
               )
               assert.equal(endingFundMeBalance.toString(), '0')
               console.log('Witdrawn!!!!!!!')

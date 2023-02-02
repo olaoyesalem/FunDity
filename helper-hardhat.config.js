@@ -14,9 +14,15 @@ const networkConfig ={
     }
 }
 
+const DECIMALS = 8
+
+const INITIAL_ANSWER = 10
 const developmentChains =["hardhat", 31337]
 
 module.exports={
     networkConfig,
-    developmentChains
+    developmentChains,
+    DECIMALS,
+    INITIAL_ANSWER
+
 }

@@ -1,3 +1,5 @@
+const { contractAddress,abi } = require("./constants.js")
+const { ethers } = require("hardhat");
 
 
 const connectButton = document.getElementById("connectButton");
@@ -24,9 +26,9 @@ async function connect(){
 async function fund(){
 
     if(typeof window.ethereum !=="undefined"){
-        const provider = new ethers.Providers.web3Provider(window.ethereum)
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
-        const contract = new ethers.Contract(abi,);
-    }
+        const contract = new ethers.Contract(contractAddress,abi,signer)
+       }
 
 }

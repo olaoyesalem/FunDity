@@ -1,14 +1,23 @@
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    
-    <title>FunDity</title>
-</head>
-<body>
-    <h1>FunDity</h1>
-    <script src="./index.js" type="module">
-       
-    </script>
-     <button id="connectButton"> Connect </button>
-     <button id="fundButton"> Fund </button>
-</body>
+    <head>
+        <title>FunDity</title>
+    </head>
+    <body>
+        <h1>FunDity</h1>
+        <script src="./index.js" type="module"></script>
+
+        
+        <label for="addressToAmountFunded"></label>
+        <button id="addressToAmountFunded">Address To Amount Funded</button>
+        <input id="address" placeholder="0x00......" />
+
+        <button id="connectButton">Connect</button>
+        <button id="withdrawButton"> withdraw</button>
+        <button id="fundButton">Fund</button>
+        <button id="balanceButton">Balance</button>
+        <button id="blockNumberButton">Block Number</button>
+        <label for="fund">ethAmount</label>
+        <input id="ethAmount" placeholder="0.1 eth" />
+    </body>
 </html>

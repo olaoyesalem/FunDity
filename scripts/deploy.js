@@ -1,7 +1,6 @@
 const { ethers, run, network } = require('hardhat')
 const { networkConfig } = require('../helper-hardhat.config')
 
-
 const DECIMALS = 8
 const INITIAL_ANSWER = 200000000000
 let ethUsdPriceFeed, args
@@ -9,18 +8,17 @@ async function main() {
     const chainId = network.config.chainId
     console.log(`chainId:${chainId}`)
     if (chainId == '31337') {
-        const MockV3AggregatorFactory = await ethers.getContractFactory(
-            'MockV3Aggregator'
-        )
+        // not working---...---
+        const ethUsdAggregator = await deployments.get('MockV3Aggregator') // get the most recent deployments of contracts
+        ethUsdPriceFeedAddress = ethUsdAggregator.address
+        const Fund = await ethers.getContractFactory('FundMe')
+
         console.log('Deploying.......')
-        const MockV3Aggregator = await MockV3AggregatorFactory.deploy(
-            DECIMALS,
-            INITIAL_ANSWER
-        )
-        await MockV3Aggregator.deployed
-        console.log(`Deployed!!!!! to ${MockV3Aggregator.address}`)
+
+        const FundMe = await Fund.deploy(ethUsdPriceFeedAddress)
+        await FundMe.deployed
+        console.log(`Deployed!!!!! to ${FundMe.address}`)
     } else if (chainId !== '31337') {
-   
         args = networkConfig[chainId]
         console.log(args)
 
@@ -34,7 +32,7 @@ async function main() {
         if (process.env.ETHERSCAN_API_KEY) {
         }
         verify(FundMeAddress, args)
-        console.log("Verified")
+        console.log('Verified')
     }
 }
 
@@ -56,7 +54,6 @@ async function verify(contractAddress, args) {
         }
     }
 }
-
 
 main()
     .then(() => process.exit(0))

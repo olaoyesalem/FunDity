@@ -1,0 +1,13 @@
+One should crowdfund with a minimu of () before you can create.
+
+**Js
+ I have issues with withdraw function
+
+ 
+ ** Smart contract
+ I need to finish the fundAddress function and withdrawAddress function
+ but I am having issues with the logic to USE for fundAddress
+
+
+ ** Write Tests 
+ ** Check Security

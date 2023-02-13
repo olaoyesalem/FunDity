@@ -17,6 +17,7 @@ address [] public funders;
 address [] public f_funders;
 mapping(address=>uint256) public addressToAmountFunded;
 mapping(uint256=>address) public amountToAddressFunded;
+mapping(string => address) public nameToAddressCreated;
 address [] private listOfFunDityAddresses;
 mapping (address=>string) private f_nameToAddress;
 FunDitees[] public funditees;
@@ -77,6 +78,7 @@ function createMyFunDity(string calldata _addressName) public  returns(address){
      address payable funditeeAddress = payable(castedAddress);
      listOfFunDityAddresses.push(funditeeAddress);
      funditees.push(FunDitees(funditeeAddress,_addressName));
+    nameToAddressCreated[_addressName]=funditeeAddress;
      return funditeeAddress;
      // copy an paste the functions but transfer funds to funditeAddress
      // add event for creation of address

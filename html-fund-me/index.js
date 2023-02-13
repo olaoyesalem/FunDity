@@ -17,7 +17,15 @@ const addressToAmountFundedButton = document.getElementById('addressToAmountFund
 addressToAmountFundedButton.onclick = addressToAmountFunded
 
 const withdrawButton = document.getElementById('withdrawButton') 
-withdrawButton.onclick = withdraw
+withdrawButton.onclick = withdraw 
+
+
+const createCampaignButton = document.getElementById('campaignButton')
+createCampaignButton.onclick = createCampaign
+
+const highestFundedButton = document.getElementById('highestFundedButton')
+highestFundedButton.onclick = highestFunder
+
 
 function listenForTxnMine(txnResponse, provider) {
     // this is to listen to the blockchain and see events that has happened
@@ -121,4 +129,36 @@ async function withdraw(){
     }
     
 }
-// get the list of Funders
+
+async function nameToAddressCreated(addressName){
+    if(typeof window.ethereum !== "undefined"){
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress,abi,signer)
+        
+        const address= nameToAddressCreated(addressName)
+}
+}
+async function createCampaign(){
+    const addressName =document.getElementById("addressName").value
+    if(typeof window.ethereum !== "undefined"){
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress,abi,signer)
+        const txnResponse = await contract.createMyFunDity(addressName)
+        const address =nameToAddressCreated(addressName)
+        console.log(` ${addressName} has created a campaign with ${address}`)
+  
+}
+}
+async function highestFunder(){
+    // not working
+    if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer =  provider.getSigner();
+        const balance = await provider.getBalance("0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65")
+      
+        console.log(`Highest Funder : ${balance}`);
+        
+    }
+}

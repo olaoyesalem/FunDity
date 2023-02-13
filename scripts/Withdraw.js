@@ -1,12 +1,17 @@
 const { network, ethers } = require('hardhat')
 
 async function main() {
-    const fundMeFactory = await ethers.getContractFactory('FundMe')
+
     console.log('Deploying......')
-    const FundMe = await fundMeFactory.deploy()
-    FundMe.deployed
-    FundMe.wait(1)
-    await FundMe.withdraw()
+    const fundMeFactory = await ethers.getContractFactory("FundMe")
+    console.log("Deploying.......");
+    const FundMe = await fundMeFactory.deploy();
+    await FundMe.deployed;
+    console.log("Stil Deploying.......")
+    const Fund = await FundMe.withdraw();
+    Fund.wait(1);
+    console.log(" Funded ");
+    
     console.log('Withdrawn!!!!!!')
 }
 

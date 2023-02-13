@@ -27,8 +27,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         args = [ethUsdPriceFeedAddress]
     const FundMe = await deploy("FundMe",{
         from:deployer,
-        args:args,
         log:true,
+        args:[]
         //waitConfirmations:network.config.blockConfirmation,
     })
         

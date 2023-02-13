@@ -1,9 +1,9 @@
 const { ethers, run, network } = require('hardhat')
-const { networkConfig } = require('../helper-hardhat.config')
+const { networkConfig } = require('../helper-hardhat.config') 
 
 const DECIMALS = 8
 const INITIAL_ANSWER = 200000000000
-let ethUsdPriceFeed, args
+let ethUsdPriceFeed, args, FundMeAddress
 async function main() {
     const chainId = network.config.chainId
     console.log(`chainId:${chainId}`)
@@ -24,16 +24,15 @@ async function main() {
 
         const fundMeFactory = await ethers.getContractFactory('FundMe')
         console.log('Deploying.......')
-        const FundMe = await fundMeFactory.deploy(
-            '0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e'
-        )
+        const FundMe = await fundMeFactory.deploy()
         await FundMe.deployed
-        const FundMeAddress = FundMe.address
+         FundMeAddress = FundMe.address
         if (process.env.ETHERSCAN_API_KEY) {
         }
         verify(FundMeAddress, args)
         console.log('Verified')
     }
+    console.log(` Contract Address: ${FundMeAddress}`);
 }
 
 console.log('Deployed..')

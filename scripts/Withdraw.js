@@ -1,14 +1,18 @@
-const { getContractFactory } = require('@nomiclabs/hardhat-ethers/types')
-const { network } = require('hardhat')
-const { networkConfig } = require('../helper-hardhat.config')
+const { network, ethers } = require('hardhat')
 
 async function main() {
-    const chainId = network.config.chainId
-    const args = networkConfig[chainId]['ethUsdPriceFeed']
-    const fundMeFactory = await getContractFactory('FundMe')
+    const fundMeFactory = await ethers.getContractFactory('FundMe')
     console.log('Deploying......')
-    const FundMe = await fundMeFactory.deploy(args)
+    const FundMe = await fundMeFactory.deploy()
+    FundMe.deployed
     FundMe.wait(1)
     await FundMe.withdraw()
     console.log('Withdrawn!!!!!!')
 }
+
+main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+        console.error(error)
+        process.exit(1)
+    })

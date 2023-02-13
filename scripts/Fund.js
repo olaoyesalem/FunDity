@@ -5,16 +5,16 @@ async function main(){
     const chainId = network.config.chainId;
     console.log(chainId)
     const args = networkConfig[chainId]["ethUsdPriceFeed"]
-    const sendValue=10;
+    const sendValue= ethers.utils.parseEther("1");
     console.log(args)
     const fundMeFactory = await ethers.getContractFactory("FundMe")
     console.log("Deploying.......");
-    const FundMe = await fundMeFactory.deploy(args);
+    const FundMe = await fundMeFactory.deploy();
     await FundMe.deployed;
     console.log("Stil Deploying.......")
     const Fund = await FundMe.Fund({value: sendValue});
     Fund.wait(1);
-    console.log(" Funded ");clear
+    console.log(" Funded ");
     
 
 }

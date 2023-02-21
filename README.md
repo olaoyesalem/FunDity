@@ -12,6 +12,7 @@ Fundity is a unique crowdfunding webiste that allows users to fund am account fo
 
 ## Technologies
 * Solidity
+* 
 * Remix-IDE
 
 

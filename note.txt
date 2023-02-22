@@ -7,7 +7,7 @@ One should crowdfund with a minimum of () before you can create.
 
  
  ** Smart contract
- I need to finish the fundAddress function and withdrawAddress function
+ I need to finish the  withdrawAddress function
  but I am having issues with the logic to USE for fundAddress 
  
 

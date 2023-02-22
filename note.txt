@@ -3,6 +3,7 @@ One should crowdfund with a minimum of () before you can create.
 **Js
  I have issues with withdraw function 
  //still having issues
+ /
 
  
  ** Smart contract

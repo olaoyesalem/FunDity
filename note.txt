@@ -1,12 +1,18 @@
 One should crowdfund with a minimum of () before you can create.
 
 **Js
- I have issues with withdraw function
+ I have issues with withdraw function 
+ //still having issues
+ /
 
  
  ** Smart contract
- I need to finish the fundAddress function and withdrawAddress function
- but I am having issues with the logic to USE for fundAddress
+ I need to finish the  withdrawAddress function
+ but I am having issues with the logic to USE for fundAddress 
+ 
+
+// I am done with the fundAddress and I made mad strides
+// but I am having issues with withdraw function
 
 
  ** Write Tests 
@@ -18,6 +24,7 @@ One should crowdfund with a minimum of () before you can create.
 //create a new page for creating a new campaign 
 /. add fund , balance
 //
+<<<<<<< HEAD
 // and update the contract and add neccessary things ---done feb 13
 
 Today-1
@@ -43,3 +50,9 @@ Today-1
 // trewe 0x691F1C07F5DADFEc47f2576eB756Ba0771E91BEa
 // Saloe 0x4c95cdD46E153AfcA6f75d064E647589B6448F21
 //ewq 0x5Ede34B207F8F76a098337aAA62CE755FE8004D0
+=======
+// and update the contract and add neccessary things -----done feb 13
+//
+// (later)when you create a campaign you should have a login// when you create a campaign you should have a login
+// problems
+>>>>>>> 5217d1b9668d58a1ba830aa67cdde63dc3207550

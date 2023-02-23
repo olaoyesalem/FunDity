@@ -18,7 +18,7 @@ if(typeof window.ethereum != "undefined"){
     
 }
 else{
-    connectButton.innerHTML = "INSTALL METAMASK !!!!"
+    connectButton.innerHTML = "INSTALL METAMASK!!!!"
 }
 }
 
@@ -26,7 +26,6 @@ async function fund(){
     if (typeof window.ethereum != "undefined") {
         
     }
-
     // How to connect for each person that has created an address
 }
 

@@ -43,7 +43,7 @@ function listenForTxnMine(txnResponse, provider) {
             resolve()
         })
     })
-    
+
 }
 
 async function connect() {
@@ -92,9 +92,6 @@ async function balance() {
     }
 
 }
-
-
-
 
 async function addressToAmountFunded(){
     const address =document.getElementById("address").value

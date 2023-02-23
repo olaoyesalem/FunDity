@@ -18,7 +18,7 @@ if(typeof window.ethereum != "undefined"){
     
 }
 else{
-    connectButton.innerHTML = "INSTALL  METAMASK!!!!"
+    connectButton.innerHTML = "INSTALL  METAMASK!!!"
 }
 }
 

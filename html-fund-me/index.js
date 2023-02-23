@@ -43,6 +43,7 @@ function listenForTxnMine(txnResponse, provider) {
             resolve()
         })
     })
+    
 }
 
 async function connect() {

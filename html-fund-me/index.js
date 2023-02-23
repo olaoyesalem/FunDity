@@ -1,3 +1,4 @@
+
 import { contractAddress, abi }from"./constants.js"
 import  {ethers}  from "./ethers-5.6.esm.min.js"
 
@@ -10,8 +11,8 @@ fundButton.onclick = fund
 const balanceButton = document.getElementById('balanceButton')
 balanceButton.onclick = balance
 
-const blockNumberButton = document.getElementById('blockNumberButton') 
-blockNumberButton.onclick = blockNumber
+const addressListButton = document.getElementById('addressListButton')
+addressListButton.onclick= addressList
 
 const addressToAmountFundedButton = document.getElementById('addressToAmountFunded') 
 addressToAmountFundedButton.onclick = addressToAmountFunded
@@ -23,9 +24,11 @@ withdrawButton.onclick = withdraw
 const createCampaignButton = document.getElementById('campaignButton')
 createCampaignButton.onclick = createCampaign
 
-const highestFundedButton = document.getElementById('highestFundedButton')
-highestFundedButton.onclick = highestFunder
+const viewBalanceButton = document.getElementById("Balance");
+viewBalanceButton.onclick = viewBalance
 
+const fundAddressButton = document.getElementById("fundAddress"); 
+fundAddressButton.onclick = fundAddress
 
 function listenForTxnMine(txnResponse, provider) {
     // this is to listen to the blockchain and see events that has happened
@@ -86,17 +89,7 @@ async function balance() {
 
 
     }
-}
 
-async function blockNumber() {
-    if (typeof window.ethereum !== 'undefined') {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner();
-        const blockNumber = await provider.getBalance(contractAddress)
-        console.log(` currrent Block Number is ${blockNumber.toString()}`)
-
-
-    }
 }
 
 
@@ -130,35 +123,95 @@ async function withdraw(){
     
 }
 
-async function nameToAddressCreated(addressName){
-    if(typeof window.ethereum !== "undefined"){
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress,abi,signer)
-        
-        const address= nameToAddressCreated(addressName)
-}
-}
 async function createCampaign(){
-    const addressName =document.getElementById("addressName").value
+    let nameToAddress,addressName
+     addressName =document.getElementById("addressName").value
+    //const addressName ="Salem"
     if(typeof window.ethereum !== "undefined"){
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractAddress,abi,signer)
+        console.log("1")
         const txnResponse = await contract.createMyFunDity(addressName)
-        const address =nameToAddressCreated(addressName)
-        console.log(` ${addressName} has created a campaign with ${address}`)
-  
+        console.log("2")
+        await txnResponse.wait(1);
+         nameToAddress = await contract.nameToAddress(addressName)
+        console.log(` Suceesfully Created A campaign at ${nameToAddress}`)
+       
+        // check it is not working
 }
+
 }
-async function highestFunder(){
-    // not working
-    if (typeof window.ethereum !== "undefined") {
+
+async function addressList(){ // Total Lists of addresses
+     
+    if(typeof window.ethereum !== "undefined"){
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer =  provider.getSigner();
-        const balance = await provider.getBalance("0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65")
-      
-        console.log(`Highest Funder : ${balance}`);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress,abi,signer);
+        const listOfFunDityAddresses = await contract.numberOfAddresses
+         const length = listOfFunDityAddresses.length;
+         console.log(`Length : ${listOfFunDityAddresses}`)
+        //const addressName =document.getElementById("addressName").value
+        //const nameToAddress = await contract.nameToAddress(addressName)
+       // console.log(` ${addressName} Created A campaign at ${nameToAddress}`)
         
+ 
     }
 }
+
+
+async function viewBalance(){
+    let address = document.getElementById("addressBalanceButton").value;
+    if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress,abi,signer);
+        const txnResponse = await contract.getAddressBalance(address);
+        const convertedTxnResponse = ethers.utils.formatEther(txnResponse)
+        console.log(` ${address} balance is ${convertedTxnResponse} eth`)
+    }
+}
+
+async function fundAddress(){
+    const ethAmount = document.getElementById('ethAmount').value
+    const address = document.getElementById("fundAddressButton").value; 
+    if (typeof window.ethereum !== "undefined") {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress,abi,signer);
+       
+        try {
+            const txnResponse = await contract.fundAddress(address,
+                {value: ethers.utils.parseEther(ethAmount)})
+            await txnResponse.wait(1)
+            await listenForTxnMine(txnResponse, provider)
+            console.log(
+                `Successfully Transferred ${ethAmount} eth from ${signer.address} to ${contractAddress}`
+            )
+        } catch (error) {
+            console.log(error)
+        }
+
+
+      console.log(`Funded!!!!`)
+    }
+   
+    }
+
+
+
+
+// So the createFundity is not really working properly
+// I'll check goerli network later today
+
+// LIISTS OF WHAT TO DO
+// FundAddress - Done
+// WithdrawAddress - 
+// getAddressBalance - Done
+// Change The page after creating a new address
+// Then add
+//-- Address,owner i.e msg.sender;
+// sprouts out the total list coreectly
+// we need the nameToAddress bla bla
+// Withdraw - Done

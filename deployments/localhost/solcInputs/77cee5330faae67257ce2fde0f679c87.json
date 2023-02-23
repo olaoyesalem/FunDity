@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/FundMe.sol": {
+      "content": "\n//SPDX-License-Identifier:MIT\npragma solidity ^0.8.7;\n\n\n/**\n @title A contract for crowd funding\n @author Olaoye Salem\n @notice This contract is to demo a sample funding contract\n @dev This implements price feeds as our library\n */\n \ncontract FundMe{\n\naddress immutable i_owner;\nuint256 constant MINIMUM_USD = 1e10*18;// 1 dollar\naddress [] public funders; \naddress [] public f_funders;\nmapping(address=>uint256) public addressToAmountFunded;\nmapping(uint256=>address) public amountToAddressFunded;\naddress [] public listOfFunDityAddresses;\nuint256 public numberOfAddresses=listOfFunDityAddresses.length;\nmapping (string=>address ) public nameToAddress;\nFunDitees[] public funditees;\n\n    address []  public list_of_creators;\n    mapping(address=>address) public creatorToAddressCreated;\n    mapping(address=>address) public addressCreatedToCreator;\n    struct  FunDitees{\n    address payable funditeeAddress;\n    string  name;\n    }\n    bytes32 [] private hashedAddressList;\nconstructor(){\n    i_owner = msg.sender;\n}\n\nmodifier onlyOwner(){\n    require(msg.sender==i_owner);\n    _;\n}\nmodifier sendError(){\n\nrequire(msg.value>=MINIMUM_USD, \"Send More Eth\");\n_;\n}\n\n   modifier checkDuplicateName(string memory _addressName){\n       bytes32 addressName= keccak256(abi.encode(_addressName));\n       uint256 length = hashedAddressList.length;\n       for(uint256 i=0; i<length;++i){\n          \n           require(addressName!=hashedAddressList[i],\" Name Has Already Been taken\");// Just So beautiful\n       }\n        _;\n    }\n    modifier checkAddress( address _address){\n        uint256 length =listOfFunDityAddresses.length;\n        for(uint256 i=0; i<length;){\n            unchecked{\n                ++i;\n            }\n            require(_address==listOfFunDityAddresses[i],\"Address not in the list\");\n        }\n        _;\n    }\n\n    function Fund() public payable  {\n        funders.push(msg.sender);\n        addressToAmountFunded[msg.sender]+=msg.value;\n\n}\n    function withdraw()public {\n        for(uint i=0; i<funders.length; i++){\n            addressToAmountFunded[funders[i]]=0;\n        }\n        funders = new address[](0);\n        (bool callSuccess, )=payable(msg.sender).call{value: address(this).balance}(\"\");\n            require(callSuccess,\"call Failed\");\n    }\n    \n        \n// function highestFunder() public view returns(address){ \n//     //not done yet\n//     uint256 max=addressToAmountFunded[funders[0]];\n//     for(uint256 i = 1; i<funders.length;i++) {\n//         if(max < addressToAmountFunded[funders[i]]) {\n//             max = addressToAmountFunded[funders[i]];\n//         }\n//   return amountToAddressFunded[max];\n\n// }\n      function createMyFunDity(string memory _addressName) public checkDuplicateName(_addressName)  {\n        address caller  = msg.sender;   \n        list_of_creators.push(caller);                                             \n     bytes32 hashedAddressName = keccak256(abi.encode(_addressName));\n     hashedAddressList.push(hashedAddressName);// added  hashed to the array to comapre .\n\n     bytes32 hashedString = keccak256(abi.encode(_addressName, msg.sender,block.timestamp));\n     address castedAddress = address(uint160(uint256(hashedString)));\n     address payable funditeeAddress = payable(castedAddress);\n    funditees.push(FunDitees(funditeeAddress,_addressName));\n     listOfFunDityAddresses.push(funditeeAddress);\n     nameToAddress[_addressName]=funditeeAddress;\n     creatorToAddressCreated[caller]=funditeeAddress;\n     addressCreatedToCreator[funditeeAddress]=caller;\n    \n\n    }\n\n    function fundAddress(address payable _address) public payable{\n           bool sent = _address.send(msg.value);\n        require(sent, \"Failed to send ETH\");// Done\n    }\n\n    function withdrawFromAddress( address  payable  _address) public {\n        // we need to get the addresses to the creator, which has been mapped, then\n        // only the address can call this function\n     \n    //    address caller =   addressCreatedToCreator[_address];\n    //    require(msg.sender==caller, \"Wrong Sender\");\n    //    bool sent =payable(msg.sender).send(1000);\n    //     require(sent, \"Failed to send ETH\");\n    uint256 balance = address(_address).balance;\n    bool sent =payable(address(this)).send(balance);\n    require(sent, \"Failed to send ETH\");\n        \n    }\n\n    function getAddressBalance(address _address) public view returns(uint256){\n        uint256 balance = address(_address).balance;\n        return balance;\n    }\n\n    receive() external payable{\n        Fund();\n    }\n    fallback()external payable{\n        Fund();\n    }\n\n\n}\n//withdraw function is not working"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

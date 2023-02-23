@@ -1,4 +1,4 @@
-One should crowdfund with a minimu of () before you can create.
+One should crowdfund with a minimum of () before you can create.
 
 **Js
  I have issues with withdraw function
@@ -14,10 +14,32 @@ One should crowdfund with a minimu of () before you can create.
 ** withdraw bugs
 ** add slogan to name of the name of address.
 
-// Today create a new page for creating a new campaign 
+// Today 
+//create a new page for creating a new campaign 
 /. add fund , balance
 //
 // and update the contract and add neccessary things ---done feb 13
-//
+
+Today-1
+//create a new page for creating a new campaign  // -eeror seeing the list of addresses
+// add fund , balance
+// create a tag for name to address created
+
+
+// go back to remix and finish the smart contract
+
+
+
+
+
+
+//add slogan ...
 // (later)when you create a  campaign you should have a login// when you create a  campaign you should have a login
 // problem
+
+
+// 0x2349eA3b4268a858fC5bc234578C48c9b216223F
+
+// trewe 0x691F1C07F5DADFEc47f2576eB756Ba0771E91BEa
+// Saloe 0x4c95cdD46E153AfcA6f75d064E647589B6448F21
+//ewq 0x5Ede34B207F8F76a098337aAA62CE755FE8004D0

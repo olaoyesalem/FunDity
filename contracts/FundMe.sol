@@ -1,3 +1,4 @@
+
 //SPDX-License-Identifier:MIT
 pragma solidity ^0.8.7;
 
@@ -17,17 +18,19 @@ address [] public funders;
 address [] public f_funders;
 mapping(address=>uint256) public addressToAmountFunded;
 mapping(uint256=>address) public amountToAddressFunded;
-mapping(string => address) public nameToAddressCreated;
-address [] private listOfFunDityAddresses;
-mapping (address=>string) private f_nameToAddress;
+address [] public listOfFunDityAddresses;
+uint256 public numberOfAddresses=listOfFunDityAddresses.length;
+mapping (string=>address ) public nameToAddress;
 FunDitees[] public funditees;
 
-struct  FunDitees{
+    address []  public list_of_creators;
+    mapping(address=>address) public creatorToAddressCreated;
+    mapping(address=>address) public addressCreatedToCreator;
+    struct  FunDitees{
     address payable funditeeAddress;
     string  name;
-}
-
-
+    }
+    bytes32 [] private hashedAddressList;
 constructor(){
     i_owner = msg.sender;
 }
@@ -42,12 +45,32 @@ require(msg.value>=MINIMUM_USD, "Send More Eth");
 _;
 }
 
-    function Fund() public payable virtual {
+   modifier checkDuplicateName(string memory _addressName){
+       bytes32 addressName= keccak256(abi.encode(_addressName));
+       uint256 length = hashedAddressList.length;
+       for(uint256 i=0; i<length;++i){
+          
+           require(addressName!=hashedAddressList[i]," Name Has Already Been taken");// Just So beautiful
+       }
+        _;
+    }
+    modifier checkAddress( address _address){
+        uint256 length =listOfFunDityAddresses.length;
+        for(uint256 i=0; i<length;){
+            unchecked{
+                ++i;
+            }
+            require(_address==listOfFunDityAddresses[i],"Address not in the list");
+        }
+        _;
+    }
+
+    function Fund() public payable  {
         funders.push(msg.sender);
         addressToAmountFunded[msg.sender]+=msg.value;
 
 }
-    function withdraw()public onlyOwner{
+    function withdraw()public {// removeed only owner andd it is working perfectly....will remove it later
         for(uint i=0; i<funders.length; i++){
             addressToAmountFunded[funders[i]]=0;
         }
@@ -57,47 +80,57 @@ _;
     }
     
         
-function highestFunder() public view returns(address){ 
-    //not done yet
-    uint256 max=addressToAmountFunded[funders[0]];
-    for(uint256 i = 1; i<funders.length;i++) {
-        if(max < addressToAmountFunded[funders[i]]) {
-            max = addressToAmountFunded[funders[i]];
-        }
-  return amountToAddressFunded[max];
+// function highestFunder() public view returns(address){ 
+//     //not done yet
+//     uint256 max=addressToAmountFunded[funders[0]];
+//     for(uint256 i = 1; i<funders.length;i++) {
+//         if(max < addressToAmountFunded[funders[i]]) {
+//             max = addressToAmountFunded[funders[i]];
+//         }
+//   return amountToAddressFunded[max];
 
-}
-}
+// }
+      function createMyFunDity(string memory _addressName) public checkDuplicateName(_addressName)  {
+        address caller  = msg.sender;   
+        list_of_creators.push(caller);                                             
+     bytes32 hashedAddressName = keccak256(abi.encode(_addressName));
+     hashedAddressList.push(hashedAddressName);// added  hashed to the array to comapre .
 
-function createMyFunDity(string calldata _addressName) public  returns(address){
-        // Want to check if there are no two names 
-        // get all the names in the the array list an compare it .-=-. 
-      
      bytes32 hashedString = keccak256(abi.encode(_addressName, msg.sender,block.timestamp));
      address castedAddress = address(uint160(uint256(hashedString)));
      address payable funditeeAddress = payable(castedAddress);
+    funditees.push(FunDitees(funditeeAddress,_addressName));
      listOfFunDityAddresses.push(funditeeAddress);
-     funditees.push(FunDitees(funditeeAddress,_addressName));
-    nameToAddressCreated[_addressName]=funditeeAddress;
-     return funditeeAddress;
-     // copy an paste the functions but transfer funds to funditeAddress
-     // add event for creation of address
+     nameToAddress[_addressName]=funditeeAddress;
+     creatorToAddressCreated[caller]=funditeeAddress;
+     addressCreatedToCreator[funditeeAddress]=caller;
+    
+
+    }
+
+    function fundAddress(address payable _address) public payable{
+           bool sent = _address.send(msg.value);
+        require(sent, "Failed to send ETH");// Done
+    }
+
+    function withdrawFromAddress( address  payable  _address) public {
+        // we need to get the addresses to the creator, which has been mapped, then
+        // only the address can call this function
+     
+    //    address caller =   addressCreatedToCreator[_address];
+    //    require(msg.sender==caller, "Wrong Sender");
+    //    bool sent =payable(msg.sender).send(1000);
+    //     require(sent, "Failed to send ETH");
+    uint256 balance = address(_address).balance;
+    bool sent =payable(address(this)).send(balance);
+    require(sent, "Failed to send ETH");
+        
     }
 
     function getAddressBalance(address _address) public view returns(uint256){
         uint256 balance = address(_address).balance;
         return balance;
     }
-
-    function fundAddress(address payable _address, uint256 _amount) payable public  {
-    
-        uint256 oldBalance = address(this).balance;
-        uint256 newBalance=address(this).balance+_amount;
-        (bool callSuccess,)=payable(_address).call{value: _amount}("");
-        require(callSuccess,"call Failed");
-        // add event for funding
-        // add mssg.sender to list of cretators
-        }
 
     receive() external payable{
         Fund();
@@ -108,10 +141,4 @@ function createMyFunDity(string calldata _addressName) public  returns(address){
 
 
 }
-
-
-//0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e
-//1000000000000000000
-
-
-// funding the address is not working
+//withdraw function is not working

@@ -35,7 +35,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     if(!developmentChains.includes(network.name)&&process.env.ETHERSCAN_API_KEY){
         await verify(FundMe.address,args )
     }
-
+    log( `Deployer : ${deployer}`);
     log("--------------------------");
 
 

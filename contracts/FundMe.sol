@@ -70,7 +70,7 @@ _;
         addressToAmountFunded[msg.sender]+=msg.value;
 
 }
-    function withdraw()public {// removeed only owner andd it is working perfectly....will remove it later
+    function withdraw()public onlyOwner {
         for(uint i=0; i<funders.length; i++){
             addressToAmountFunded[funders[i]]=0;
         }
@@ -79,17 +79,8 @@ _;
             require(callSuccess,"call Failed");
     }
     
-        
-// function highestFunder() public view returns(address){ 
-//     //not done yet
-//     uint256 max=addressToAmountFunded[funders[0]];
-//     for(uint256 i = 1; i<funders.length;i++) {
-//         if(max < addressToAmountFunded[funders[i]]) {
-//             max = addressToAmountFunded[funders[i]];
-//         }
-//   return amountToAddressFunded[max];
+    
 
-// }
       function createMyFunDity(string memory _addressName) public checkDuplicateName(_addressName)  {
         address caller  = msg.sender;   
         list_of_creators.push(caller);                                             

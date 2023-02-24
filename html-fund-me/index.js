@@ -122,9 +122,9 @@ async function withdraw(){
 }
 
 async function createCampaign(){
+    // Once this has been created 
     let nameToAddress,addressName
      addressName =document.getElementById("addressName").value
-    //const addressName ="Salem"
     if(typeof window.ethereum !== "undefined"){
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner();
@@ -171,31 +171,31 @@ async function viewBalance(){
     }
 }
 
-async function fundAddress(){
-    const ethAmount = document.getElementById('ethAmount').value
-    const address = document.getElementById("fundAddressButton").value; 
-    if (typeof window.ethereum !== "undefined") {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress,abi,signer);
+// async function fundAddress(){
+//     const ethAmount = document.getElementById('ethAmount').value
+//     const address = document.getElementById("fundAddressButton").value; 
+//     if (typeof window.ethereum !== "undefined") {
+//         const provider = new ethers.providers.Web3Provider(window.ethereum);
+//         const signer = provider.getSigner();
+//         const contract = new ethers.Contract(contractAddress,abi,signer);
        
-        try {
-            const txnResponse = await contract.fundAddress(address,
-                {value: ethers.utils.parseEther(ethAmount)})
-            await txnResponse.wait(1)
-            await listenForTxnMine(txnResponse, provider)
-            console.log(
-                `Successfully Transferred ${ethAmount} eth from ${signer.address} to ${contractAddress}`
-            )
-        } catch (error) {
-            console.log(error)
-        }
+//         try {
+//             const txnResponse = await contract.fundAddress(address,
+//                 {value: ethers.utils.parseEther(ethAmount)})
+//             await txnResponse.wait(1)
+//             await listenForTxnMine(txnResponse, provider)
+//             console.log(
+//                 `Successfully Transferred ${ethAmount} eth from ${signer.address} to ${contractAddress}`
+//             )
+//         } catch (error) {
+//             console.log(error)
+//         }
 
 
-      console.log(`Funded!!!!`)
-    }
+//       console.log(`Funded!!!!`)
+//     }
    
-    }
+//     }
 
 
 
@@ -205,7 +205,5 @@ async function fundAddress(){
 
 // LIISTS OF WHAT TO DO
 // WithdrawAddress - 
-
-
 //-- Address,owner i.e msg.sender;
 // Withdraw - Done

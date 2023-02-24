@@ -72,6 +72,7 @@ async function fund(){
 
 async function withdraw(){
     if (typeof window.ethereum != "undefined") {
-        
+        // I will work on this 
+        //cos I'm having issues with the smart contract for this
     }
 }

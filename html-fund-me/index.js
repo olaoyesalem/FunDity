@@ -204,12 +204,8 @@ async function fundAddress(){
 // I'll check goerli network later today
 
 // LIISTS OF WHAT TO DO
-// FundAddress - Done
 // WithdrawAddress - 
-// getAddressBalance - Done
-// Change The page after creating a new address
-// Then add
+
+
 //-- Address,owner i.e msg.sender;
-// sprouts out the total list coreectly
-// we need the nameToAddress bla bla
 // Withdraw - Done

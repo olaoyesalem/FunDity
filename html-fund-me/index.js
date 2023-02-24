@@ -27,8 +27,7 @@ createCampaignButton.onclick = createCampaign
 const viewBalanceButton = document.getElementById("Balance");
 viewBalanceButton.onclick = viewBalance
 
-const fundAddressButton = document.getElementById("fundAddress"); 
-fundAddressButton.onclick = fundAddress
+
 
 function listenForTxnMine(txnResponse, provider) {
     // this is to listen to the blockchain and see events that has happened

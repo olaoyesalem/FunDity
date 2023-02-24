@@ -122,7 +122,7 @@ async function withdraw(){
 }
 
 async function createCampaign(){
-    // Once this has been created it should go to a new page(index.html in createCampaign folder) that a copy of 
+    // Once this has been created it should go to a new page(index.html in createCampaign folder) and give the right details
     let nameToAddress,addressName
      addressName =document.getElementById("addressName").value
     if(typeof window.ethereum !== "undefined"){

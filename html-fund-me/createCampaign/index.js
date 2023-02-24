@@ -41,17 +41,20 @@ else{
 }
 
 async function fund(){
+    const ethAmount = document.getElementById("ethAmount")
     // get the name from createCampaign and store it in an addressName
-     const ethAmount = document.getElementById("ethAmount")
+    //something like this 
+    let addressName;
+   
      // The addressName will be mapped to address
      // funds will be sent to him
     if (typeof window.ethereum != "undefined") {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractAddress,abi,signer);
-        const address = await contract.nameToAddress(addressName);
+        const address = await contract.nameToAddress(addressName); // mapping addressName to get the corressponding address
         try {
-            const txnResponse = await contract.fundAddress(address,
+            const txnResponse = await contract.fundAddress(address,// then we will send funds to the address
                 {value: ethers.utils.parseEther(ethAmount)})
             await txnResponse.wait(1)
             await listenForTxnMine(txnResponse, provider)
@@ -64,7 +67,7 @@ async function fund(){
         await fundAddress.wait(1);
         
     }
-    // How to connect for each person that has created an address
+   
 }
 
 async function withdraw(){

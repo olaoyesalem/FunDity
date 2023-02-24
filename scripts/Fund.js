@@ -14,7 +14,7 @@ async function main(){
     console.log("Stil Deploying.......")
     const Fund = await FundMe.Fund({value: sendValue});
     Fund.wait(1);
-    console.log(" Funded ");
+    console.log(" Funde d ");
     
 
 }

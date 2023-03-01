@@ -105,13 +105,14 @@ _;
     }
 
     function withdrawFromAddress( address  payable  _address) public {
-        // we need to get the addresses to the creator, which has been mapped, then
-        // only the address can call this function
-     
+     // we need to get the addresses to the creator, which has been mapped, then
+    // only the address can call this function
     //    address caller =   addressCreatedToCreator[_address];
     //    require(msg.sender==caller, "Wrong Sender");
     //    bool sent =payable(msg.sender).send(1000);
     //     require(sent, "Failed to send ETH");
+    
+
     uint256 balance = address(_address).balance;
     bool sent =payable(address(this)).send(balance);
     require(sent, "Failed to send ETH");

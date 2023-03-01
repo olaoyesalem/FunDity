@@ -20,11 +20,11 @@ module.exports = {
 		],
 	},
   networks:{
-    localHost:{
-			url:LOCAL_HOST_URL,
-			chainId:31337,
-			accounts:[LOCAL_HOST_PRIVATE_KEY]
-    },
+    // localHost:{
+	// 		url:LOCAL_HOST_URL,
+	// 		chainId:31337,
+	// 		accounts:[LOCAL_HOST_PRIVATE_KEY]
+    // },
     // goerli:{
     //   url:GOERLI_URL,
     //   chainId:5,

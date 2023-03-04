@@ -23,6 +23,11 @@ balanceButton.onclick = balance
 const createCampaignButton = document.getElementById("campaignButton")
 createCampaignButton.onclick = createCampaign
 
+
+const fundAddressButton = document.getElementById("fundAddressButton")
+fundAddressButton.onclick = fundAddress
+
+
 function listenForTxnMine(txnResponse, provider) {
     // this is to listen to the blockchain and see events that has happened
     console.log(`Mining ${txnResponse.hash} hash`)
@@ -109,17 +114,58 @@ async function balance() {
 
 async function createCampaign(){
     // Once this has been created it should go to a new page(index.html in createCampaign folder) and give the right details
-    let Address,addressName,description,recipient
+    let Address,addressName,description
      addressName =document.getElementById("addressName").value
+     description = document.getElementById("description").value
     if(typeof window.ethereum !== "undefined"){
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner();
         const contract = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
-        const txnResponse = await contract.createDonate(addressName)
+        const txnResponse = await contract.createDonate(addressName,description)
         await txnResponse.wait(1);
          Address = await contract.nameToAddress(addressName)
         console.log(` Suceesfully Created A campaign at ${Address}`)
        
 }
+    
+}
 
+
+//0xE451980132E65465d0a498c53f0b5227326Dd73F
+
+// Try to use this function and check if it will work
+
+async function fundAddress(){
+    const ethAmount = document.getElementById('ethAmount').value
+    if (typeof window.ethereum !== "undefined"){
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        console.log("1")
+        const contract = new ethers.Contract(
+            //0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67
+            donateAddress,
+            donateABI,
+            signer
+        )
+        console.log("11")
+        const txnResponse = await contract.donate({
+                value: ethers.utils.parseEther(ethAmount),
+             })
+        await txnResponse.wait(1);
+        console.log("Funded!!!!")
+
+
+        // try {
+        //     const txnResponse = await contract.Fund({
+        //         value: ethers.utils.parseEther(ethAmount),
+        //     })
+        //     await listenForTxnMine(txnResponse, provider)
+        //     console.log(
+        //         `Successfully Transferred ${ethAmount} eth from ${signer.address} to ${donateFactoryAddress}`
+        //     )
+        // } catch (error) {
+        //     console.log(error)
+        // }
+
+    }
 }

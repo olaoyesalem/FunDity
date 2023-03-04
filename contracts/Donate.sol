@@ -136,3 +136,6 @@ address  i_owner;
 //I'll try connecting it with javascript 
 // add events
 //is there test for events
+
+
+// check for falllback function

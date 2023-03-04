@@ -3,7 +3,7 @@ const { verify } = require('../utils/verify')
 const {
     campaignName,
     description,
-    recipient,
+    
     developmentChains,
 } = require('../helper-hardhat.config')
 module.exports = async ({ deployments, getNamedAccounts }) => {
@@ -12,7 +12,7 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
 
     const Donate = await deploy('Donate', {
         from: deployer,
-        args: [campaignName, description, recipient],
+        args: [campaignName, description],
         log: true,
     })
 

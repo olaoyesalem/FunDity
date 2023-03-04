@@ -21,7 +21,7 @@ const developmentChains =["hardhat", 31337]
 
 const campaignName = "Salem"
 const description =  "Peace"
-const  recipient =   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+const  recipient =   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 "
 module.exports={
     networkConfig,
     developmentChains,

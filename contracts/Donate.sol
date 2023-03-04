@@ -30,7 +30,7 @@ contract DonateFactory{
         bytes32 hashedString = keccak256(abi.encode(campaignName));
         hashedAddressList.push(hashedString);
 
-        address newDonate = address(new Donate(campaignName,  _description, msg.sender));
+        address newDonate = address(new Donate(campaignName,  _description));
         deployedFundraisers.push(newDonate); 
         nameToAddress[campaignName]=newDonate;
     }
@@ -93,7 +93,7 @@ address  i_owner;
     
 
        constructor(string memory campaignName, string memory _description) public {
-        
+        i_owner = msg.sender;
         campaignName = campaignName;
      
         description = _description;

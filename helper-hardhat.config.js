@@ -1,5 +1,5 @@
 // This is to store the address that gives the priceFeed for each Blockchain
-
+const {getNamedAccounts} = require("hardhat")
 const networkConfig ={
     5:{
         ethUsdPriceFeed: "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e",
@@ -19,10 +19,16 @@ const DECIMALS = 8
 const INITIAL_ANSWER = 10
 const developmentChains =["hardhat", 31337]
 
+const campaignName = "Salem"
+const description =  "Peace"
+const  recipient =   "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 module.exports={
     networkConfig,
     developmentChains,
     DECIMALS,
-    INITIAL_ANSWER
+    INITIAL_ANSWER,
+    campaignName,
+    description,
+    recipient
 
 }

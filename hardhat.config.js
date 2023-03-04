@@ -35,7 +35,7 @@ const GOERLI_PRIVATE_KEY = process.env.GOERLI_PRIVATE_KEY;
   namedAccounts:{
 		deployer:{
 			default:0,
-			31337:0,
+			31337:0, 
 			1:0,
 			5:0
 		}

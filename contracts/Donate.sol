@@ -23,16 +23,16 @@ contract DonateFactory{
         _;
     }
   
-    ///@notice This function creates FundMe by calling constructor of FundMe
+    ///@notice This function creates Donate by calling constructor of Donate
     ///@param campaignName the firstname of the recipient
     ///@param _description the need for the fundraising
-    function createFundMe (string memory campaignName, string memory _description ) checkDuplicateName(campaignName) public{
+    function createDonate (string memory campaignName, string memory _description ) checkDuplicateName(campaignName) public{
         bytes32 hashedString = keccak256(abi.encode(campaignName));
         hashedAddressList.push(hashedString);
 
-        address newFundMe = address(new FundMe(campaignName,  _description, msg.sender));
-        deployedFundraisers.push(newFundMe); 
-        nameToAddress[campaignName]=newFundMe;
+        address newDonate = address(new Donate(campaignName,  _description, msg.sender));
+        deployedFundraisers.push(newDonate); 
+        nameToAddress[campaignName]=newDonate;
     }
 
 address [] public funders;  
@@ -89,15 +89,15 @@ address  i_owner;
     //number of donors in the fundraiser
     
 
-       constructor(string memory campaignName, string memory _desription, address _recipient) public {
+       constructor(string memory campaignName, string memory _description, address _recipient) public {
         
         campaignName = campaignName;
      
-        description = _desription;
+        description = _description;
 
         recipient = _recipient;
         
-    //    emit Contract_Created(_recipient, address(this), _desription);
+    //    emit Contract_Created(_recipient, address(this), _description);
     }
 
 
@@ -131,3 +131,5 @@ address  i_owner;
 
 // I am done with the smart contract for now.
 //I'll try connecting it with javascript 
+// add events
+//is there test for events

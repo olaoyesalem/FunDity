@@ -143,7 +143,7 @@ async function fundAddress(){
         console.log("1")
         const contract = new ethers.Contract(
             //0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67
-            donateAddress, // To check if the donateFunction is working
+            donateAddress, // To check if the donateFunction is work
             donateABI,
             signer
         )

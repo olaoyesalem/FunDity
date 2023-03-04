@@ -112,10 +112,27 @@ _;
     //    bool sent =payable(msg.sender).send(1000);
     //     require(sent, "Failed to send ETH");
     
-
-    uint256 balance = address(_address).balance;
+    uint256 balance = address(_address).balance;//  balance of the address we want to withdraw from.
     bool sent =payable(address(this)).send(balance);
     require(sent, "Failed to send ETH");
+
+  
+   
+    // This is actually sending funds from contract address to the contract address using
+    // the balance of the payable address - and it is wrong
+
+    // we need to send money from a random address to another address
+
+    // questions:
+    // ask chatGPT how to create a payable address and ask if funds get into it , how can we get it out.
+    //ask chatGpt how to create a payable address and a private key atttached to the address and see how we can connect it and
+    // withdraw from the address.
+    // we have an address an money is in it,we created the address, can we get any molney out of it
+    /// can we get a private key from an hashed function 
+    //Opposite of payable
+    // 
+    // how to transfer from an address using the private key combination in solidity
+
         
     }
 

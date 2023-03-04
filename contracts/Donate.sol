@@ -62,6 +62,11 @@ address  i_owner;
             require(callSuccess,"call Failed");
     }
 
+    function balance() public view returns(uint256){
+        uint256 balance = address(this).balance;
+        return balance;
+    }
+
 }
 
 
@@ -80,22 +85,20 @@ address  i_owner;
 
 
 
-    //address of contract owner,that will be recieving the donations
-    address public recipient;
-    //the reason for creating fundraising campaign
+
     string public description;
     //Campaign name of reciepient
     string public campaignName;
     //number of donors in the fundraiser
     
 
-       constructor(string memory campaignName, string memory _description, address _recipient) public {
+       constructor(string memory campaignName, string memory _description) public {
         
         campaignName = campaignName;
      
         description = _description;
 
-        recipient = _recipient;
+     
         
     //    emit Contract_Created(_recipient, address(this), _description);
     }
@@ -123,7 +126,7 @@ address  i_owner;
         
       //  emit Fund_Withdrawn(recipient,address(this),balance);//sends out event that contract owner/recipient have withdrew some funds
        
-        bool sent =payable(recipient).send(address(this).balance);
+        bool sent =payable(msg.sender).send(address(this).balance);
     require(sent, "Failed to send ETH");
     }
 }

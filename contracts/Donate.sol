@@ -103,7 +103,7 @@ contract Donate{
 
     //    emit Contract_Created(_recipient, address(this), _description);
     }
-45
+
     function donate() public  payable{  
         donators.push(msg.sender); 
         donorsAmount[msg.sender] = msg.value; //keeps track of the amount that each donor contributes;  

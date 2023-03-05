@@ -86,7 +86,6 @@ contract Donate{
   modifier onlyOwner(){
     require(msg.sender==i_owner); //the real owner is the one that created the instnace of the address.
   
-
   
     _;
 }

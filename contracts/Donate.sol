@@ -89,8 +89,6 @@ contract Donate{
     _;
 }
 
-
-
     string public description;
     //Campaign name of reciepient
     string public campaignName;

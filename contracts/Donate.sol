@@ -101,8 +101,6 @@ contract Donate{
         campaignName = campaignName;
         description = _description;
 
-     
-        
     //    emit Contract_Created(_recipient, address(this), _description);
     }
 

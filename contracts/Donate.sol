@@ -81,8 +81,6 @@ contract Donate{
        mapping (address=>uint256) private donorsAmount;
        address [] donators;
        address  i_owner;
-
-
          ///@notice only fundraiser/recipient can perform action
 
   modifier onlyOwner(){

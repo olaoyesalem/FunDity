@@ -1,5 +1,4 @@
-// when we create a new campaign a new instance of Donate is sprout out, but different address and the same ABI
-// so for every campaign, we need to find a way to autonomously connect the address to the page ....
+
 import {
     donateFactoryAddress,
     donateAddress,
@@ -141,23 +140,41 @@ async function createCampaign(){
 
 async function fundAddress(){
     const ethAmount = document.getElementById('ethAmount').value
+    let Address, 
+    addressName = document.getElementById("addressName").value;
+    
+     // the name of the campaign i.e addressName is maaped to the corresponding address
+        // the addressName is gotten when the a user clicks any address it wants to fund from the front end,
+        // then the name of the campaign a user wants to fund is passed in ass address name
+
+
     if (typeof window.ethereum !== "undefined"){
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-  
+    
+        // this contractFactory is an instance of donateFactory,we get the factory once again here necause we want to get 
+        // a maaping that gives us the address we want to transfer to : nameToAddress(addressName)  
+        const contractFactory = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
+       
+        Address = await contractFactory.nameToAddress(addressName) //addressName:
+        // the name of the campaign i.e addressName is maaped to the corresponding address
+        // the addressName is gotten when the a user clicks any address it wants to fund from the front end,
+        // then the name of the campaign a user wants to fund is passed in ass address name
+
         const contract = new ethers.Contract(
-            //"0x75537828f2ce51be7289709686A69CbFDbB714F1",
-        "0x75537828f2ce51be7289709686A69CbFDbB714F1", // To check if the donateFunction is work
+            Address, 
             donateABI,
             signer
         )
+       
+
         try {
             const txnResponse = await contract.donate({
                 value: ethers.utils.parseEther(ethAmount),
             })
             await listenForTxnMine(txnResponse, provider)
             console.log(
-                `Successfully Transferred ${ethAmount} eth from ${signer.address} to ${"0xE451980132E65465d0a498c53f0b5227326Dd73F"}`
+                `Successfully Transferred ${ethAmount} eth from ${signer} to ${Address}`
             )
         } catch (error) {
             console.log(error)
@@ -168,19 +185,24 @@ async function fundAddress(){
 
 
 async function withdrawAddresss(){
-
+    let Address, 
+    addressName = document.getElementById("addressName").value;
 
     if (typeof window.ethereum !== 'undefined') {
         console.log(` Withdrawing!!!!!!!!!!!`)
         console.log(`-------------------------------------`)
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
+        const contractFactory = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
+
+        Address = await contractFactory.nameToAddress(addressName) 
+
         const contract = new ethers.Contract(
-            // "0x75537828f2ce51be7289709686A69CbFDbB714F1",
-            "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+             Address,
             donateABI,
             signer
         )
+
         const txnResponse = await contract.withdraw()
         await listenForTxnMine(txnResponse, provider)
         console.log(`-------------------------------------`)
@@ -192,13 +214,17 @@ async function withdrawAddresss(){
 
 
 async function getBalance(){
-
+    let Address, 
+    addressName = document.getElementById("addressName").value;
     if (typeof window.ethereum !== 'undefined') {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
-        const balance = await provider.getBalance("0x75537828f2ce51be7289709686A69CbFDbB714F1")
+        const contractFactory = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
+        Address = await contractFactory.nameToAddress(addressName) 
+        const balance = await provider.getBalance(Address)
         console.log(` Balance : ${ ethers.utils.formatEther(balance)} eth`)
 
     }
 
 }
+

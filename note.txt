@@ -4,6 +4,13 @@
 //Audit with s;ither and patrick
 
 // try it on goerli network
+//Then on consensys
 
-// 0x3200E6a3dD7A6D7396D3506786C1016C777ffFFA DonateFactory
-//  0x73108D971c6b49Df04ad9Eb72E0b54bAA0cf235B Donate
+
+
+EVERYTHING IS WORKING PERFECTLY
+I JUST NEED TO CLEAN UP
+WRITE Tests
+AND Audit
+AND POST ON CONSENSYS
+// Make them transfer any amount to the contract

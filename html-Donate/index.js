@@ -27,6 +27,15 @@ createCampaignButton.onclick = createCampaign
 const fundAddressButton = document.getElementById("fundAddressButton")
 fundAddressButton.onclick = fundAddress
 
+const withdrawAddressButton = document.getElementById("withdrawAddressButton")
+withdrawAddressButton.onclick = withdrawAddresss
+
+const getBalanceButton = document.getElementById("getBalanceButton")
+getBalanceButton.onclick = getBalance
+
+
+
+
 
 function listenForTxnMine(txnResponse, provider) {
     // this is to listen to the blockchain and see events that has happened
@@ -130,42 +139,66 @@ async function createCampaign(){
     
 }
 
-
-//0xE451980132E65465d0a498c53f0b5227326Dd73F
-
-// Try to use this function and check if it will work
-
 async function fundAddress(){
     const ethAmount = document.getElementById('ethAmount').value
     if (typeof window.ethereum !== "undefined"){
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        console.log("1")
+  
         const contract = new ethers.Contract(
-            //0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67
-            donateAddress, // To check if the donateFunction is work
+            //"0x75537828f2ce51be7289709686A69CbFDbB714F1",
+        "0x75537828f2ce51be7289709686A69CbFDbB714F1", // To check if the donateFunction is work
             donateABI,
             signer
         )
-        console.log("11")
-        const txnResponse = await contract.donate({
+        try {
+            const txnResponse = await contract.donate({
                 value: ethers.utils.parseEther(ethAmount),
-             })
-        await txnResponse.wait(1);
-        console.log("Funded!!!!")
-
-
-        // try {
-        //     const txnResponse = await contract.Fund({
-        //         value: ethers.utils.parseEther(ethAmount),
-        //     })
-        //     await listenForTxnMine(txnResponse, provider)
-        //     console.log(
-        //         `Successfully Transferred ${ethAmount} eth from ${signer.address} to ${donateFactoryAddress}`
-        //     )
-        // } catch (error) {
-        //     console.log(error)
-        // }
+            })
+            await listenForTxnMine(txnResponse, provider)
+            console.log(
+                `Successfully Transferred ${ethAmount} eth from ${signer.address} to ${"0xE451980132E65465d0a498c53f0b5227326Dd73F"}`
+            )
+        } catch (error) {
+            console.log(error)
+        }
 
     }
+}
+
+
+async function withdrawAddresss(){
+
+
+    if (typeof window.ethereum !== 'undefined') {
+        console.log(` Withdrawing!!!!!!!!!!!`)
+        console.log(`-------------------------------------`)
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+        const contract = new ethers.Contract(
+            // "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+            "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+            donateABI,
+            signer
+        )
+        const txnResponse = await contract.withdraw()
+        await listenForTxnMine(txnResponse, provider)
+        console.log(`-------------------------------------`)
+        console.log(`Withdrawn........`)
+    }
+
+
+}
+
+
+async function getBalance(){
+
+    if (typeof window.ethereum !== 'undefined') {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+        const balance = await provider.getBalance("0x75537828f2ce51be7289709686A69CbFDbB714F1")
+        console.log(` Balance : ${ ethers.utils.formatEther(balance)} eth`)
+
+    }
+
 }

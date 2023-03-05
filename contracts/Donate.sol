@@ -12,6 +12,8 @@ contract DonateFactory{
   address[] public deployedFundraisers;// we keep track of all the fundraisers here.
   mapping(string=>address)public nameToAddress;
   bytes32 [] hashedAddressList;
+  mapping(address=>address) creatorToAddressCreated;
+  mapping(address=>string) creatorToCampaignName;
 
     modifier checkDuplicateName(string memory _addressName){
        bytes32 addressName= keccak256(abi.encode(_addressName));
@@ -33,6 +35,10 @@ contract DonateFactory{
         address newDonate = address(new Donate(campaignName,  _description));
         deployedFundraisers.push(newDonate); 
         nameToAddress[campaignName]=newDonate;
+        creatorToAddressCreated[msg.sender]=newDonate;
+
+
+        //try to map the owner of a particular campaign
     }
 
 address [] public funders;  
@@ -74,15 +80,15 @@ contract Donate{
        bytes32 [] private hashedAddressList;
        mapping (address=>uint256) private donorsAmount;
        address [] donators;
+       address  i_owner;
+
 
          ///@notice only fundraiser/recipient can perform action
-address  i_owner;
 
-    modifier onlyOwner(){
-    require(msg.sender==i_owner);
+  modifier onlyOwner(){
+    require(msg.sender==i_owner); //the real owner is the one that created the instnace of the address.
     _;
 }
-
 
 
 
@@ -95,7 +101,6 @@ address  i_owner;
        constructor(string memory campaignName, string memory _description) public {
         i_owner = msg.sender;
         campaignName = campaignName;
-     
         description = _description;
 
      
@@ -115,20 +120,21 @@ address  i_owner;
     ///@notice allows for withdrawing funds from contract
     ///@dev Only reciepient can withdraw funds from this contract
     ///@dev all funds can be remooved anytime
-    function withdraw() public onlyOwner{
+    function withdraw() public onlyOwner {//removed onlyOwner
         //balance stores the amount of money in the contract at this moment
         uint balance = address(this).balance;
-        // checks if there is money in the account
-        require(
-            balance != 0,
-            "Contract balance is 0"
-        );
-        
       //  emit Fund_Withdrawn(recipient,address(this),balance);//sends out event that contract owner/recipient have withdrew some funds
        
-        bool sent =payable(msg.sender).send(address(this).balance);
-    require(sent, "Failed to send ETH");
+          (bool callSuccess, )=payable(msg.sender).call{value: address(this).balance}("");
+            require(callSuccess,"call Failed");
     }
+
+    function getBalance(address _address) public view returns(uint256){
+        uint256 balance = address(_address).balance;
+        return balance;
+    }
+
+
 }
 
 

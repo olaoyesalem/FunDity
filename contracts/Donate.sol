@@ -103,7 +103,7 @@ contract Donate{
 
     //    emit Contract_Created(_recipient, address(this), _description);
     }
-\\\
+
 
     function donate() public  payable{  
         donators.push(msg.sender); 

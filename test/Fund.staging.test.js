@@ -1,6 +1,6 @@
 const { assert } = require('chai')
 const {network, ethers} = require('hardhat')
-const {developmentChains, networkConfig} = require('../helper-hardhat.config')
+const {developmentChains, networkConfig,campaignName,description,recipient} = require('../helper-hardhat.config')
 
 
 !developmentChains.includes(network.name)
@@ -13,7 +13,7 @@ const {developmentChains, networkConfig} = require('../helper-hardhat.config')
                   'Donate'
               )
               console.log('Deploying ..........')
-              Donate = await DonateContractFactory.deploy()
+              Donate = await DonateContractFactory.deploy(campaignName, description,recipient)
               await Donate.deployed
               console.log(`Deployed To ${Donate.address} `)
           })

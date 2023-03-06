@@ -1,32 +1,4 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@olaoyesalem 
-Gbenro
-/
-FundMe
-Public
-Fork your own copy of Gbenro/FundMe
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-Beta Try the new code view
-FundMe/test/FundMe.test.js /
-@Gbenro
-Gbenro switched to semantic ui
-Latest commit fbd6595 on Dec 21, 2018
- History
- 1 contributor
-272 lines (241 sloc)  7.97 KB
+
 
 const assert = require('assert')
 const ganache = require('ganache-cli')
@@ -300,17 +272,3 @@ describe('FundMe', () => {
     }
   })
 })
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About

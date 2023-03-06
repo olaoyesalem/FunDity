@@ -21,14 +21,13 @@ const {
               console.log('Deploying ..........')
               donateFactory = await donateContractFactory.deploy()
               donateContract = await donateContract.deploy(campaignName,description,recipient);
-              await donateFactory.wait(1)
-              await donateContract.wait(1)
               await donateFactory.deployed
               await donateContract.deployed.
               console.log(`Deployed To ${donateFactory.address} `)
               console.log(`Deployed To ${donateContract.address} `)
               
           })
+
         })
 //           it.only(' should allow people to fund', async function () {
 //               await Donate.Fund({ value: sendValue })

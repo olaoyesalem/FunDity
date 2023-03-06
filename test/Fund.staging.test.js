@@ -5,27 +5,27 @@ const {developmentChains, networkConfig} = require('../helper-hardhat.config')
 
 !developmentChains.includes(network.name)
     ? describe.skip
-    : describe('FundMe', function () {
+    : describe('Donate', function () {
           const sendValue = ethers.utils.parseEther('1')
-          let endingFundMeBalance, FundMe
+          let endingFundMeBalance, Donate
           beforeEach(async function () {
               const DonateContractFactory = await ethers.getContractFactory(
                   'Donate'
               )
               console.log('Deploying ..........')
-              FundMe = await DonateContractFactory.deploy()
-              await FundMe.deployed
-              console.log(`Deployed To ${FundMe.address} `)
+              Donate = await DonateContractFactory.deploy()
+              await Donate.deployed
+              console.log(`Deployed To ${Donate.address} `)
           })
           it(' should allow people to fund', async function () {
-              await FundMe.Fund({ value: sendValue })
+              await Donate.Fund({ value: sendValue })
               console.log('Funded!!!')
           })
           it('should allow people to withdraw', async function () {
-              await FundMe.Fund({ value: sendValue })
-              await FundMe.withdraw()
+              await Donate.Fund({ value: sendValue })
+              await Donate.withdraw()
               endingFundMeBalance = await ethers.provider.getBalance(
-                  FundMe.address
+                  Donate.address
               )
               assert.equal(endingFundMeBalance.toString(), '0')
               console.log('Witdrawn!!!!!!!')
@@ -33,26 +33,26 @@ const {developmentChains, networkConfig} = require('../helper-hardhat.config')
 
           it('should check if the address created is correctly mapped', async function () {
               addressName = 'Salem'
-              await FundMe.createMyFunDity(addressName)
-              const addressCreated = await FundMe.listOfFunDityAddresses(0)
-              const txnResponse = await FundMe.nameToAddress(addressName)
+              await Donate.createMyFunDity(addressName)
+              const addressCreated = await Donate.listOfFunDityAddresses(0)
+              const txnResponse = await Donate.nameToAddress(addressName)
               assert.equal(addressCreated, txnResponse)
               console.log(' Address Successfully created !!!')
           })
           it('should fund the address created',async function(){
             addressName = 'Salem'
-              await FundMe.createMyFunDity(addressName)
-              const address = await FundMe.listOfFunDityAddresses(0)
-             await FundMe.fundAddress(address)
+              await Donate.createMyFunDity(addressName)
+              const address = await Donate.listOfFunDityAddresses(0)
+             await Donate.fundAddress(address)
              console.log('Successfully Funded!!!')
 
               
           })
           it.only('should check the balance of the address',async function(){
             addressName = 'Salem'
-            await FundMe.createMyFunDity(addressName)
-            const address = await FundMe.listOfFunDityAddresses(0)
-            const txnResponse = await FundMe.getAddressBalance(address)
+            await Donate.createMyFunDity(addressName)
+            const address = await Donate.listOfFunDityAddresses(0)
+            const txnResponse = await Donate.getAddressBalance(address)
 
             assert.equal(txnResponse.toString(),"0")
           })

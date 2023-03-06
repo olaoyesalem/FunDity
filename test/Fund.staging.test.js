@@ -23,7 +23,7 @@ const {developmentChains, networkConfig,campaignName,description,recipient} = re
           })
         })
           it('should only the owner to withdraw', async function () {
-            const provider = new ethers.providers.Web3Provider(window.ethereum)
+
           
               await Donate.Fund({ value: sendValue })
               await Donate.withdraw()

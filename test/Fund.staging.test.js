@@ -24,8 +24,7 @@ const {developmentChains, networkConfig,campaignName,description,recipient} = re
         })
           it('should only the owner to withdraw', async function () {
             const provider = new ethers.providers.Web3Provider(window.ethereum)
-            const accountZero = provider.getSigner(0)
-            await accountZero.connect()
+          
               await Donate.Fund({ value: sendValue })
               await Donate.withdraw()
               endingFundMeBalance = await ethers.provider.getBalance(

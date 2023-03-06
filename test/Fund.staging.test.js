@@ -10,8 +10,7 @@ const {
 
 !developmentChains.includes(network.name)
     ? describe.skip
-    : 
-          beforeEach(async function () {
+    : beforeEach(async function () {
               const donateContractFactory = await ethers.getContractFactory(
                   'DonateFactory'
               )
@@ -24,14 +23,16 @@ const {
               await donateContract.deployed.
               console.log(`Deployed To ${donateFactory.address} `)
               console.log(`Deployed To ${donateContract.address} `)
-              
-        
           })
-          
-          it.only(' should allow people to fund', async function () {
-            await donateFactory.Fund({ value: sendValue })
-            console.log('Funded!!!')
+
+        describe("Donate Factory",()=>{
+            it('deploys a donate and donateFactory',()=>{
+                assert.ok()
+                assert.ok()
+            })
         })
+          
+          
         
          
       

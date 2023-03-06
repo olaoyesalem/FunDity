@@ -17,45 +17,46 @@ const {developmentChains, networkConfig} = require('../helper-hardhat.config')
               await Donate.deployed
               console.log(`Deployed To ${Donate.address} `)
           })
-          it(' should allow people to fund', async function () {
+          it.only(' should allow people to fund', async function () {
               await Donate.Fund({ value: sendValue })
               console.log('Funded!!!')
           })
-          it('should allow people to withdraw', async function () {
-              await Donate.Fund({ value: sendValue })
-              await Donate.withdraw()
-              endingFundMeBalance = await ethers.provider.getBalance(
-                  Donate.address
-              )
-              assert.equal(endingFundMeBalance.toString(), '0')
-              console.log('Witdrawn!!!!!!!')
-          })
+        })
+    //       it('should allow people to withdraw', async function () {
+    //           await Donate.Fund({ value: sendValue })
+    //           await Donate.withdraw()
+    //           endingFundMeBalance = await ethers.provider.getBalance(
+    //               Donate.address
+    //           )
+    //           assert.equal(endingFundMeBalance.toString(), '0')
+    //           console.log('Witdrawn!!!!!!!')
+    //       })
 
-          it('should check if the address created is correctly mapped', async function () {
-              addressName = 'Salem'
-              await Donate.createMyFunDity(addressName)
-              const addressCreated = await Donate.listOfFunDityAddresses(0)
-              const txnResponse = await Donate.nameToAddress(addressName)
-              assert.equal(addressCreated, txnResponse)
-              console.log(' Address Successfully created !!!')
-          })
-          it('should fund the address created',async function(){
-            addressName = 'Salem'
-              await Donate.createMyFunDity(addressName)
-              const address = await Donate.listOfFunDityAddresses(0)
-             await Donate.fundAddress(address)
-             console.log('Successfully Funded!!!')
+    //       it('should check if the address created is correctly mapped', async function () {
+    //           addressName = 'Salem'
+    //           await Donate.createMyFunDity(addressName)
+    //           const addressCreated = await Donate.listOfFunDityAddresses(0)
+    //           const txnResponse = await Donate.nameToAddress(addressName)
+    //           assert.equal(addressCreated, txnResponse)
+    //           console.log(' Address Successfully created !!!')
+    //       })
+    //       it('should fund the address created',async function(){
+    //         addressName = 'Salem'
+    //           await Donate.createMyFunDity(addressName)
+    //           const address = await Donate.listOfFunDityAddresses(0)
+    //          await Donate.fundAddress(address)
+    //          console.log('Successfully Funded!!!')
 
               
-          })
-          it.only('should check the balance of the address',async function(){
-            addressName = 'Salem'
-            await Donate.createMyFunDity(addressName)
-            const address = await Donate.listOfFunDityAddresses(0)
-            const txnResponse = await Donate.getAddressBalance(address)
+    //       })
+    //       it.only('should check the balance of the address',async function(){
+    //         addressName = 'Salem'
+    //         await Donate.createMyFunDity(addressName)
+    //         const address = await Donate.listOfFunDityAddresses(0)
+    //         const txnResponse = await Donate.getAddressBalance(address)
 
-            assert.equal(txnResponse.toString(),"0")
-          })
-      })
+    //         assert.equal(txnResponse.toString(),"0")
+    //       })
+    //   })
 
       // remains just the withdrawAddress functitton

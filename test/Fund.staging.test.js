@@ -14,7 +14,7 @@ const {developmentChains, networkConfig,campaignName,description,recipient} = re
               )
               const donateContract = await ethers.getContractFactory('Donate')
               console.log('Deploying ..........')
-              Donate = await DonateContractFactory.deploy()
+              Donate = await donateContractFactory.deploy()
               await Donate.deployed
               console.log(`Deployed To ${Donate.address} `)
           })

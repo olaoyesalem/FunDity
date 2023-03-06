@@ -21,6 +21,7 @@ const {
               console.log('Deploying ..........')
               donateFactory = await donateContractFactory.deploy()
               donateContract = await donateContract.deploy(campaignName,description,recipient);
+
               await donateFactory.deployed
               await donateContract.deployed.
               console.log(`Deployed To ${donateFactory.address} `)

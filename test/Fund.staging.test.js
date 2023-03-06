@@ -13,6 +13,7 @@ const {
     : describe('Donate', function () {
           const sendValue = ethers.utils.parseEther('1')
           let endingFundMeBalance, Donate
+        //  const senValue = new ethers.utils.parseEther("1")
           beforeEach(async function () {
               const donateContractFactory = await ethers.getContractFactory(
                   'DonateFactory'
@@ -26,15 +27,16 @@ const {
               await donateContract.deployed.
               console.log(`Deployed To ${donateFactory.address} `)
               console.log(`Deployed To ${donateContract.address} `)
-              
+        
           })
-
+          
+          it.only(' should allow people to fund', async function () {
+            await donateFactory.Fund({ value: sendValue })
+            console.log('Funded!!!')
         })
-//           it.only(' should allow people to fund', async function () {
-//               await Donate.Fund({ value: sendValue })
-//               console.log('Funded!!!')
-//           })
-//       })
+        })
+         
+      
 // it('should only the owner to withdraw', async function () {
 //     await Donate.Fund({ value: sendValue })
 //     await Donate.withdraw()

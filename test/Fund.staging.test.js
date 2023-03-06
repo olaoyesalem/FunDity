@@ -25,7 +25,9 @@ const {
               await donateContract.wait(1)
               await donateFactory.deployed
               await donateContract.deployed.
-              console.log(`Deployed To ${Donate.address} `)
+              console.log(`Deployed To ${donateFactory.address} `)
+              console.log(`Deployed To ${donateContract.address} `)
+              
           })
         })
 //           it.only(' should allow people to fund', async function () {

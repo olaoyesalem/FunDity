@@ -9,11 +9,11 @@ const {developmentChains, networkConfig} = require('../helper-hardhat.config')
           const sendValue = ethers.utils.parseEther('1')
           let endingFundMeBalance, FundMe
           beforeEach(async function () {
-              const FundMeContractFactory = await ethers.getContractFactory(
-                  'FundMe'
+              const DonateContractFactory = await ethers.getContractFactory(
+                  'Donate'
               )
               console.log('Deploying ..........')
-              FundMe = await FundMeContractFactory.deploy()
+              FundMe = await DonateContractFactory.deploy()
               await FundMe.deployed
               console.log(`Deployed To ${FundMe.address} `)
           })

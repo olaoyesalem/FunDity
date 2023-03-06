@@ -9,9 +9,10 @@ const {developmentChains, networkConfig,campaignName,description,recipient} = re
           const sendValue = ethers.utils.parseEther('1')
           let endingFundMeBalance, Donate
           beforeEach(async function () {
-              const DonateContractFactory = await ethers.getContractFactory(
+              const donateContractFactory = await ethers.getContractFactory(
                   'DonateFactory'
               )
+              const donateContract = await ethers.getContractFactory('Donate')
               console.log('Deploying ..........')
               Donate = await DonateContractFactory.deploy()
               await Donate.deployed

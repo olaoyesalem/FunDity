@@ -10,10 +10,10 @@ const {developmentChains, networkConfig,campaignName,description,recipient} = re
           let endingFundMeBalance, Donate
           beforeEach(async function () {
               const DonateContractFactory = await ethers.getContractFactory(
-                  'Donate'
+                  'DonateFactory'
               )
               console.log('Deploying ..........')
-              Donate = await DonateContractFactory.deploy(campaignName, description,recipient)
+              Donate = await DonateContractFactory.deploy()
               await Donate.deployed
               console.log(`Deployed To ${Donate.address} `)
           })
@@ -22,15 +22,17 @@ const {developmentChains, networkConfig,campaignName,description,recipient} = re
               console.log('Funded!!!')
           })
         })
-    //       it('should allow people to withdraw', async function () {
-    //           await Donate.Fund({ value: sendValue })
-    //           await Donate.withdraw()
-    //           endingFundMeBalance = await ethers.provider.getBalance(
-    //               Donate.address
-    //           )
-    //           assert.equal(endingFundMeBalance.toString(), '0')
-    //           console.log('Witdrawn!!!!!!!')
-    //       })
+          it('should only the owner to withdraw', async function () {
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const accountZero = provider.getSigner(0)
+              await Donate.Fund({ value: sendValue })
+              await Donate.withdraw()
+              endingFundMeBalance = await ethers.provider.getBalance(
+                  Donate.address
+              )
+              assert.equal(endingFundMeBalance.toString(), '0')
+              console.log('Witdrawn!!!!!!!')
+          })
 
     //       it('should check if the address created is correctly mapped', async function () {
     //           addressName = 'Salem'

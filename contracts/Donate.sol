@@ -12,7 +12,8 @@ contract DonateFactory{
   mapping(address=>address) creatorToAddressCreated;
   mapping(address=>uint256) private addressToAmountFunded;
   address [] public funders;  
-address  i_owner;
+    address  i_owner;
+
 
 
     modifier checkDuplicateName(string memory _addressName){

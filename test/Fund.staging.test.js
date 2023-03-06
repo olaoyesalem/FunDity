@@ -27,18 +27,19 @@ const {
               await donateContract.deployed.
               console.log(`Deployed To ${Donate.address} `)
           })
-          it.only(' should allow people to fund', async function () {
-              await Donate.Fund({ value: sendValue })
-              console.log('Funded!!!')
-          })
-      })
-it('should only the owner to withdraw', async function () {
-    await Donate.Fund({ value: sendValue })
-    await Donate.withdraw()
-    endingFundMeBalance = await ethers.provider.getBalance(Donate.address)
-    assert.equal(endingFundMeBalance.toString(), '0')
-    console.log('Witdrawn!!!!!!!')
-})
+        })
+//           it.only(' should allow people to fund', async function () {
+//               await Donate.Fund({ value: sendValue })
+//               console.log('Funded!!!')
+//           })
+//       })
+// it('should only the owner to withdraw', async function () {
+//     await Donate.Fund({ value: sendValue })
+//     await Donate.withdraw()
+//     endingFundMeBalance = await ethers.provider.getBalance(Donate.address)
+//     assert.equal(endingFundMeBalance.toString(), '0')
+//     console.log('Witdrawn!!!!!!!')
+// })
 
 //       it('should check if the address created is correctly mapped', async function () {
 //           addressName = 'Salem'

@@ -28,7 +28,7 @@ const sendValue = new ethers.utils.parseEther('1')
           )
           await donateFactory.deployed
           await donate.deployed
-          console.log(` Donate Factory  deployed To ${donateFactory.address} `)
+          console.log(`Donate Factory  deployed To ${donateFactory.address} `)
           console.log(`Donaate Contract deployed To ${donate.address} `)
 
           await donateFactory.Fund({ value: sendValue })

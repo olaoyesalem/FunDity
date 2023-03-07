@@ -9,10 +9,9 @@ contract DonateFactory{
   address[] public deployedFundraisers;// we keep track of all the fundraisers here.
   mapping(string=>address)public nameToAddress;
   bytes32 [] hashedAddressList;
-  mapping(address=>address) creatorToAddressCreated;
-  mapping(address=>uint256) private addressToAmountFunded;
+  mapping(address=>uint256) public addressToAmountFunded;
   address [] public funders;  
-    address  i_owner;
+  address  i_owner;
 
 
 
@@ -82,7 +81,7 @@ _;
 contract Donate{
        bytes32 [] private hashedAddressList;
        mapping (address=>uint256) private donorsAmount;
-       address [] donators;
+       address [] public donators;
        address  i_owner;
        
 
@@ -147,7 +146,7 @@ contract Donate{
     }
 
 
-receive() external payable{
+   receive() external payable{
         donate();
     }
     fallback()external payable{

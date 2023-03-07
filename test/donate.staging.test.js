@@ -26,7 +26,6 @@ const sendValue = new ethers.utils.parseEther('1')
               description,
               recipient
           )
-
           await donateFactory.deployed
           await donate.deployed
           console.log(` Donate Factory deployed To ${donateFactory.address} `)

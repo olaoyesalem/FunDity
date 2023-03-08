@@ -7,7 +7,6 @@ const {
     campaignName,
     description,
     
-    
     recipient,
 } = require('../helper-hardhat.config')
 let donateContract, donateContractFactory, donateFactory, donate, creator

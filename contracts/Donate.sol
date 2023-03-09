@@ -1,11 +1,21 @@
 // SPDX-License-Identifier:MIT
 pragma solidity ^0.8.7;
 
+error DonateFactory__NameHasBeenTaken();
+error DonateFactory__NotOwner();
+error DonateFactory__FundBeforeCreatingCampaign();
+error DonateFactory__CallFailed();
+error Donate__CallFailed();
+error Donate__NotOwner();
 /// @title Donate factory contract
 /// @author Olaoye Salem
 /// @notice A factory contract for the main FundMe contract
 contract DonateFactory{
-// So, we create addresses here and fund,withdraw function.
+    //2,187,755
+    //2,198,562
+    //2,158,723
+    //2,127,848
+
   address[] public deployedFundraisers;// we keep track of all the fundraisers here.
   mapping(string=>address)public nameToAddress;
   bytes32 [] hashedAddressList;
@@ -19,19 +29,26 @@ contract DonateFactory{
        bytes32 addressName= keccak256(abi.encode(_addressName));
        uint256 length = hashedAddressList.length;
        for(uint256 i=0; i<length;++i){
-          
-           require(addressName!=hashedAddressList[i]," Name Has Already Been taken");// Just So beautiful
+          if(addressName==hashedAddressList[i]){
+              revert DonateFactory__NameHasBeenTaken();
+          }
+           
        }
         _;
     }
   
     modifier onlyOwner(){
-    require(msg.sender==i_owner);
+        if(msg.sender!=i_owner){
+            revert DonateFactory__NotOwner();
+        }
     _;
 }
 
 modifier hasFunded(){
-    require(addressToAmountFunded[msg.sender]>0," User has To Fund Before Creating A camapaign");
+    if(addressToAmountFunded[msg.sender]<=0){
+        revert DonateFactory__FundBeforeCreatingCampaign();
+    }
+
 _;
 }
 
@@ -65,7 +82,10 @@ _;
         }
         funders = new address[](0);
         (bool callSuccess, )=payable(msg.sender).call{value: address(this).balance}("");
-            require(callSuccess,"call Failed");
+            if(!callSuccess){
+                revert DonateFactory__CallFailed();
+            }
+          
     }
 
     function balance() public view returns(uint256){
@@ -81,7 +101,7 @@ _;
 contract Donate{
        bytes32 [] private hashedAddressList;
        mapping (address=>uint256) private donorsAmount;
-       address [] public donators;
+       address [] private donators;
        address  i_owner;
        
 
@@ -97,9 +117,10 @@ contract Donate{
     //event for when recipient withdraws money from the fundraiser contract. shows the owner address, contract address and amount withdrawn
     event Fund_Withdrawn(address indexed _from, address indexed _contract, uint _value);
 
-  modifier onlyOwner(){
-    require(msg.sender==i_owner); //the real owner is the one that created the instnace of the address.
-  
+   modifier onlyOwner(){
+        if(msg.sender!=i_owner){
+            revert Donate__NotOwner();
+        }
     _;
 }
 
@@ -137,7 +158,10 @@ contract Donate{
       emit Fund_Withdrawn(i_owner,address(this),balance);//sends out event that contract owner/recipient have withdrew some funds
        
           (bool callSuccess, )=payable(msg.sender).call{value: balance}("");
-            require(callSuccess,"call Failed");
+          if(!callSuccess){
+              revert Donate__CallFailed();
+          }
+           
     }
 
     function getBalance(address _address) public view returns(uint256){
@@ -154,4 +178,6 @@ contract Donate{
     }
 
 }
-
+//720132
+//691392
+//625350

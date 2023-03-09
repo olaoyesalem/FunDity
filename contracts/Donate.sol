@@ -11,10 +11,6 @@ error Donate__NotOwner();
 /// @author Olaoye Salem
 /// @notice A factory contract for the main FundMe contract
 contract DonateFactory{
-    //2,187,755
-    //2,198,562
-    //2,158,723
-    //2,127,848
 
   address[] public deployedFundraisers;// we keep track of all the fundraisers here.
   mapping(string=>address)public nameToAddress;

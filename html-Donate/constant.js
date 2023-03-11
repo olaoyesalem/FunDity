@@ -1,5 +1,4 @@
 export const donateFactoryAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'
-//export const donateFactoryAddress = 0x3200E6a3dD7A6D7396D3506786C1016C777ffFFA
 export const donateAddress = '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9'
 
 export const donateFactoryABI =  [

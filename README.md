@@ -8,7 +8,7 @@
 * [Status](#status)
 
 ## General info
-Fundity is a unique crowdfunding webiste that allows users to create a campaign where people can crowdfund.
+Fundity is a unique crowdfunding webiste that allows users to create a campaign where people can crowdfund .
 
 ## Technologies
 * Solidity

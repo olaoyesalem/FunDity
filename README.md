@@ -14,7 +14,6 @@ Fundity is a unique crowdfunding webiste that allows users to create a campaign 
 
 ## Technologies
 * Solidity
-* 
 * Remix-IDE
 
 

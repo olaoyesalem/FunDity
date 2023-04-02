@@ -14,6 +14,7 @@ error Donate__NotOwner();
 contract DonateFactory{
 
 
+
   address[] private creatorList;
   uint256 immutable private entryFee=10**16;
     address [] public funders;  

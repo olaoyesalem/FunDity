@@ -14,7 +14,6 @@ error Donate__NotOwner();
 contract DonateFactory{
 
 
-
   address[] private creatorList;
   uint256 immutable private entryFee=10**16;
     address [] public funders;  
@@ -27,6 +26,9 @@ contract DonateFactory{
   mapping (address=> CreatorDetail) private campaignAddressToCreatorDetail;
   mapping (address=> CreatorDetail) private creatorToCreatorDetail;
 
+  /* EVENTS */
+event campaignCreated(address indexed creator, address indexed campaign);
+event withdrawn(address indexed _to, uint256 indexed _amount);
 
 CreatorDetail [] creatorDetail;
   struct CreatorDetail{
@@ -86,6 +88,8 @@ CreatorDetail [] creatorDetail;
         campaignNameToCreatorDetail[campaignName]=CreatorDetail(newDonate,campaignName,msg.sender);
         campaignAddressToCreatorDetail[newDonate]=CreatorDetail(newDonate,campaignName,msg.sender);
         creatorToCreatorDetail[msg.sender]=CreatorDetail(newDonate,campaignName,msg.sender);
+
+        emit campaignCreated(msg.sender,newDonate);
     }
 
     function withdraw()public onlyOwner{
@@ -97,7 +101,7 @@ CreatorDetail [] creatorDetail;
             if(!callSuccess){
                 revert DonateFactory__CallFailed();
             }
-          
+          emit withdrawn(msg.sender, address(this).balance);
     }
 
     function search(address _creator, address _campaignAddress, string memory _campaignName) public{
@@ -153,15 +157,11 @@ CreatorDetail [] creatorDetail;
         return entryFee;
     }
 
-    function donate() public payable {
-
-    }
-
      receive() external payable{
-        donate();
+      
     }
     fallback()external payable{
-        donate();
+       
     }
 
 

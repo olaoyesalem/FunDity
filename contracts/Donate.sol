@@ -92,16 +92,16 @@ CreatorDetail [] creatorDetail;
         emit campaignCreated(msg.sender,newDonate);
     }
 
-    function withdraw()public onlyOwner{
+    function withdraw(uint256 _amount)public onlyOwner{
         for(uint i=0; i<funders.length; i++){
             addressToAmountFunded[funders[i]]=0;
         }
         funders = new address[](0);
-        (bool callSuccess, )=payable(msg.sender).call{value: address(this).balance}("");
+        (bool callSuccess, )=payable(msg.sender).call{value: _amount}("");
             if(!callSuccess){
                 revert DonateFactory__CallFailed();
             }
-          emit withdrawn(msg.sender, address(this).balance);
+          emit withdrawn(msg.sender, _amount);
     }
 
     function search(address _creator, address _campaignAddress, string memory _campaignName) public{

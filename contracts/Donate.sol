@@ -1,8 +1,11 @@
 // SPDX-License-Identifier:MIT
 pragma solidity ^0.8.7;
 
+
+// Add price converter to make the minimum paymentt $1
 error DonateFactory__NameHasBeenTaken();
 error DonateFactory__NotOwner();
+error DonateFactory__NotEnoughEth();
 error DonateFactory__FundBeforeCreatingCampaign();
 error DonateFactory__CallFailed();
 error Donate__CallFailed();
@@ -12,12 +15,27 @@ error Donate__NotOwner();
 /// @notice A factory contract for the main FundMe contract
 contract DonateFactory{
 
-  address[] public deployedFundraisers;// we keep track of all the fundraisers here.
-  mapping(string=>address)public nameToAddress;
-  bytes32 [] hashedAddressList;
-  mapping(address=>uint256) public addressToAmountFunded;
-  address [] public funders;  
+
+  address[] private creatorList;
+  uint256 immutable private entryFee=10**16;
+    address [] public funders;  
   address  i_owner;
+  bytes32 [] hashedAddressList;
+  mapping(string=>address)private nameToAddress;
+  mapping(address=>uint256) private addressToAmountFunded;
+  mapping(address=>address) private creatorToCampaignCreated;
+  mapping (string=> CreatorDetail) private campaignNameToCreatorDetail;
+  mapping (address=> CreatorDetail) private campaignAddressToCreatorDetail;
+  mapping (address=> CreatorDetail) private creatorToCreatorDetail;
+
+
+CreatorDetail [] creatorDetail;
+  struct CreatorDetail{
+      address campaignAddress;
+      string campaignName;
+      address creator;
+      
+  }
 
 
 
@@ -40,13 +58,6 @@ contract DonateFactory{
     _;
 }
 
-modifier hasFunded(){
-    if(addressToAmountFunded[msg.sender]<=0){
-        revert DonateFactory__FundBeforeCreatingCampaign();
-    }
-
-_;
-}
 
     constructor(){
     i_owner = msg.sender;
@@ -55,23 +66,29 @@ _;
     ///@notice This function creates Donate by calling constructor of Donate
     ///@param campaignName the firstname of the recipient
     ///@param _description the need for the fundraising
-    // users must donate any amount before they can create aa campaign
-    function createDonate (string memory campaignName, string memory _description ) hasFunded checkDuplicateName(campaignName) public{
+    // users must donate any amount before they can create a campaign
+    function createDonate (string memory campaignName, string memory _description )  checkDuplicateName(campaignName)  public payable {
+        if(msg.value<entryFee){
+            revert DonateFactory__NotEnoughEth();
+        }
+
+
+       funders.push(msg.sender);
+        addressToAmountFunded[msg.sender]+=msg.value;
+      
         bytes32 hashedString = keccak256(abi.encode(campaignName));
         hashedAddressList.push(hashedString);
 
         address newDonate = address(new Donate(campaignName,  _description,msg.sender));
-        deployedFundraisers.push(newDonate); 
+        creatorList.push(newDonate); 
+        creatorDetail.push(CreatorDetail(newDonate,campaignName,msg.sender));
         nameToAddress[campaignName]=newDonate;
-
-        
+        creatorToCampaignCreated[msg.sender]=newDonate;
+        campaignNameToCreatorDetail[campaignName]=CreatorDetail(newDonate,campaignName,msg.sender);
+        campaignAddressToCreatorDetail[newDonate]=CreatorDetail(newDonate,campaignName,msg.sender);
+        creatorToCreatorDetail[msg.sender]=CreatorDetail(newDonate,campaignName,msg.sender);
     }
 
-   function Fund() public payable  {
-        funders.push(msg.sender);
-        addressToAmountFunded[msg.sender]+=msg.value;
-
-}
     function withdraw()public onlyOwner{
         for(uint i=0; i<funders.length; i++){
             addressToAmountFunded[funders[i]]=0;
@@ -84,10 +101,70 @@ _;
           
     }
 
-    function balance() public view returns(uint256){
-        uint256 balance = address(this).balance;
-        return balance;
+    function search(address _creator, address _campaignAddress, string memory _campaignName) public{
+        // not working
+        bool isCreator = (_creator!=address(0));
+        bool isCampaignAddress = (_campaignAddress!=address(0));
+       
+       if(isCreator){
+           getCreatorToCreatorDetail(_creator);   
+       }
+       if(isCampaignAddress){
+           AddressToCreatorDetail(_campaignAddress);
+
+       }
+      
     }
+
+
+    function balance() public view returns(uint256){
+        uint256 _balance = address(this).balance;
+        return _balance;
+    }
+
+    function getCampaignAddress(uint256 _index) public view returns(address){
+        return creatorList[_index];
+
+    }
+    function getCreatorDetails(uint256 _index) public view returns(CreatorDetail memory){
+        return creatorDetail[_index];
+    }
+    function getNameToAddress(string calldata campaignName) public view returns(address){
+        return nameToAddress[campaignName];
+    }
+    function getAddressToAmountFunded(address _address) public view returns(uint256){
+        return addressToAmountFunded[_address];
+    }
+    function getCreatorToCampaignCreated(address _address) public view returns(address){
+        return creatorToCampaignCreated[_address];
+    }
+  
+    function nameToCreatorDetail(string memory _name) public view returns(CreatorDetail memory){
+        return campaignNameToCreatorDetail[_name];
+    }
+    function AddressToCreatorDetail(address _address) public view returns(CreatorDetail memory){
+        return campaignAddressToCreatorDetail[_address];
+    }
+
+    function getCreatorToCreatorDetail(address _creator) public view returns(CreatorDetail memory){
+        return creatorToCreatorDetail[_creator];
+    }
+
+    function getEntranceFee() public pure returns(uint256){
+        return entryFee;
+    }
+
+    function donate() public payable {
+
+    }
+
+     receive() external payable{
+        donate();
+    }
+    fallback()external payable{
+        donate();
+    }
+
 
 }
 
@@ -126,9 +203,9 @@ contract Donate{
     //number of donors in the fundraiser
     
 
-       constructor(string memory campaignName, string memory _description, address _i_owner) public {
+       constructor(string memory _campaignName, string memory _description, address _i_owner) {
         i_owner = _i_owner;
-        campaignName = campaignName;
+        campaignName = _campaignName;
         description = _description;
 
      
@@ -174,3 +251,6 @@ contract Donate{
     }
 
 }
+//720132
+//691392
+//625350

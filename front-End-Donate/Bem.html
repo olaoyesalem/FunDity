@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FunDity</title>
+    <link rel="stylesheet" href="Ben_styles.css">
+    <script src="https://kit.fontawesome.com/5ea37cccba.js" crossorigin="anonymous"></script>
+    <script src="./index.js" type="module"></script>
+    <script>
+        function create(){
+            document.querySelector('#create').style.display='none'
+            document.querySelector("#create").innerHTML=document.querySelector('#create-form').innerHTML
+            document.querySelector('#create-form').style.display ='block'
+        }
+        function createCampaign(){
+            document.getElementById('dashBoard').style.display='flex';
+            document.querySelector("#main").style.height = '450px'
+            document.querySelector('.container').style.display='none'
+            document.querySelector('#create-form').style.display='none'
+            document.querySelector('#create').style.display='none'
+            document.getElementById('dashBoard2').style.display='none'
+            document.querySelector("#create").innerHTML=document.getElementById('dashBoard').innerHTML
+            
+            
+        }
+        function withdrawF(){
+            document.getElementById('dashBoard2').style.display='flex';
+            document.querySelector("#main").style.height = '450px'
+            document.querySelector('.container').style.display='none'
+            document.querySelector('#create-form').style.display='none'
+            document.querySelector('#create').style.display='none'
+            document.getElementById('dashBoard').style.display='none'
+            document.querySelector("#create").innerHTML=document.getElementById('dashBoard2').innerHTML
+           
+            
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="header">
+        <div class="logo">
+            <span style="color:#6db76d; font-size:40px;"><</span>
+            <span style="color:#c5804c; font-size:40px;">></span>FunDity
+        </div>
+        <div id="nav">
+            <button id="balanceButton">Balance</button>
+            <button id="withdrawButton">Withdraw</button>
+            <button id="fundButton">Fund</button>
+            <label for="fund">ethAmount</label>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="ethAmount" placeholder="0.1 eth" />
+        </div>
+      
+      <!--  TEST-->
+        <div id="nav-right">
+            <div>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input placeholder="Search for Campaign" type="text" id="search-bar">
+            </div>
+            <div>
+                <!-- This is the connect button, but I just want to check if the Fund button is working -->
+            
+            </div>
+            <div>
+                <!-- This is the connect button -->
+                <button id="connectButton">connect</button>
+                >
+            </div>
+
+            <div>
+                <!-- I just want to check if the Create Campaign button is working -->
+                <button id="campaignButton">createCampaign </button>
+                >
+            </div>
+
+
+<!-- TEST END-->
+        </div>
+    </div>
+    <div id="body">
+        <div id="side-nav">
+            <h3 style="color:#ada5a5">CAMPAIGN</h3>
+            <button>Dashboard</button>
+            <button>Overview</button>
+            <button>History</button>
+            <button>Trending</button>
+        </div>
+        <div id="main">
+            
+            <div id="create">
+                <h1 class="gradient-text">Create a Campaign <br> with just one Click</h1>
+                <button id="create-button" onclick="create()">Create Campaign</button>
+            </div>
+            <div id="create-form" style="display:none">
+
+                <button>Campaign Name</button><br>
+                <input ><br><br>
+                <button>Fund Address</button><br>
+                <input placeholder="0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"><br><br>
+                <button>Campaign Purpose</button><br>
+                <textarea></textarea><br><br>
+                <button>Back</button>
+                <button onclick="createCampaign()">Create</button>
+            </div>
+           
+            <div id="dashBoard" style="display:none">
+                <div id="head">
+                    <h1>Dashboard</h1>
+                </div>
+                <div id="dash1" >
+                    <button>balance</button>
+                    <input placeholder="0.00"><br><br>
+                    <button >Fund Address</button>
+                    <input placeholder="0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"><br><br>
+                    <button >Campaign Name</button>
+                    <input placeholder="default"><br><br>
+                    <button>Fund Amount(Eth)</button>
+                    <input><br><br>
+                    <button style=" width:410px; height:40px; background-color:#c5804c;">Fund</button>
+                    
+
+                </div>
+                
+
+
+            </div>
+            <div id="dashBoard2" style="display:none">
+                <div id="head2">
+                    <h1>Dashboard</h1>
+                </div>
+                <div id="dash2" >
+                    <button>balance</button>
+                    <input placeholder="0.00"><br><br>
+                    <button>Withdraw Address</button>
+                    <input><br><br>
+                    <button >Campaign Name</button>
+                    <input placeholder="default"><br><br>
+                    <button>Withdraw Amount</button>
+                    <input><br><br>
+                    <button id="withdrawButton" style=" width:410px; height:40px; background-color: #6db76d;">Withdraw</button>
+
+                </div>
+                
+
+
+            </div>
+
+
+            <div>
+                <div class="container">
+                    <div class="items">
+                      <h4>Quickly fund</h4>
+                      <p>Funds for your project
+                    </p>
+                      <button>details</button>
+                    </div>
+                    <div class="items">
+                      <h4>Security</h4>
+                      <p>Secured from creation to withdrawals</p>
+                      <button>details</button>
+                    </div>
+                    <div class="items">
+                      <h4>Investors exposure</h4>
+                      <p>Exposure to potential investors
+                    </p>
+                      <button>details</button>
+                    </div>
+                    <div class="items">
+                      <h4>Manage funds</h4>
+                      <p>Manage/control your fund campaign
+                    </p>
+                      <button>details</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="beneficiaries">
+        <div style="font-size: 40px;">
+            Join other Beneficiaries
+        </div>
+        <div id="testimony">
+        
+            <div style="font-size: 50px;"><i class="fa-solid fa-angle-left"></i></div>
+            <div class="testimonial">
+                <h2>Testimony</h2>
+                <h3>Username : demo-one</h3>
+                <h4>"Thanks to the generosity of the crowdfunding community,
+                    I was able to turn my dream into a reality. It was a 
+                    life-changing experience and I'm forever grateful."</h4>
+            </div>
+            <div class="testimonial">
+                <h2>Testimony</h2>
+                <h3>Username : demo-two</h3>
+                <h4>"I donated to this campaign because I believe in their mission,
+                    and I'm proud to be part of such a positive impact on the world."</h4>
+            </div>
+            <div style="font-size: 50px;"><i class="fa-solid fa-angle-right"></i></div>
+    
+        </div>
+    </div>
+    
+    
+    <div id="team">
+        <div style="font-size: 40px;">Meet the Team</div>
+    </div>
+    <div id="footer">
+        <div id="footer-top">
+            <div>
+                <div class="logo">
+                    <span style="color:#6db76d; font-size:40px;"><</span>
+                    <span style="color:#c5804c; font-size:40px;">></span>FUNDity
+                </div>
+                <div style="text-align:start;">
+                    <p id="mission">Our mission is to empower entrepreneurs and innovators around <br>the
+                         world to bring their ideas to life by providing a decentralized
+                         and <br>transparent crowdfunding platform built on blockchain technology.
+                    </p>
+                </div>
+                <div id="socials">
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-telegram"></i>
+                    <i class="fa-brands fa-discord"></i>
+                    <i class="fa-brands fa-medium"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </div>
+            <div id="company">
+                <ul>
+                    <li style="color:#6db76d">COMPANY</li>
+                    <li>Technology</li>
+                    <li>Roadmap</li>
+                    <li>Whitepaper</li>
+                </ul>
+                <ul>
+                    <li style="color:#6db76d">LEGAL</li>
+                    <li>cookies</li>
+                    <li>Privacy</li>
+                    <li>Terms</li>
+                </ul>
+
+            </div>
+        </div>
+        <hr id="hr">
+        <div>
+            <i class="fa-regular fa-copyright"></i>
+            FUNDity. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

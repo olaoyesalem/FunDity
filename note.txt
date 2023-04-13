@@ -14,3 +14,17 @@ WRITE Tests
 AND Audit
 AND POST ON CONSENSYS
 // Make them transfer any amount to the contract
+
+
+// I need to make the search button WORKING
+// -- Then get txnresponse to a particular array
+// Updatred the smart contract
+
+
+//  check for the array to be empty when they have withdrawn
+// Change the logic up, since it is not all the money they are withdraeing -Done
+
+// Finsihs thne smart contract write tests, and connect it top javascript front-end
+almost done
+
+// check if the functions Search are working...then look for logic to choose thee best.

@@ -38,6 +38,11 @@ const GOERLI_PRIVATE_KEY = process.env.GOERLI_PRIVATE_KEY;
 			31337:0, 
 			1:0,
 			5:0
+		},
+		player:{
+			default:1,
+			31337:1
+
 		}
   }
 };

@@ -1,6 +1,8 @@
 // SPDX-License-Identifier:MIT
 pragma solidity ^0.8.7;
 
+
+// Add price converter to make the minimum paymentt $1
 error DonateFactory__NameHasBeenTaken();
 error DonateFactory__NotOwner();
 error DonateFactory__NotEnoughEth();
@@ -13,12 +15,12 @@ error Donate__NotOwner();
 /// @notice A factory contract for the main FundMe contract
 contract DonateFactory{
 
-
+string [] private namesArray;
   address[] private creatorList;
   uint256 immutable private entryFee=10**16;
-    address [] public funders;  
-  address  i_owner;
-  bytes32 [] hashedAddressList;
+    address [] private funders;  
+  address private immutable i_owner;
+  bytes32 [] private hashedAddressList;
   mapping(string=>address)private nameToAddress;
   mapping(address=>uint256) private addressToAmountFunded;
   mapping(address=>address) private creatorToCampaignCreated;
@@ -26,11 +28,8 @@ contract DonateFactory{
   mapping (address=> CreatorDetail) private campaignAddressToCreatorDetail;
   mapping (address=> CreatorDetail) private creatorToCreatorDetail;
 
-  /* EVENTS */
-event campaignCreated(address indexed creator, address indexed campaign);
-event withdrawn(address indexed _to, uint256 indexed _amount);
 
-CreatorDetail [] creatorDetail;
+CreatorDetail []  private creatorDetail;
   struct CreatorDetail{
       address campaignAddress;
       string campaignName;
@@ -68,12 +67,14 @@ CreatorDetail [] creatorDetail;
     ///@param campaignName the firstname of the recipient
     ///@param _description the need for the fundraising
     // users must donate any amount before they can create a campaign
+
+
     function createDonate (string memory campaignName, string memory _description )  checkDuplicateName(campaignName)  public payable {
         if(msg.value<entryFee){
             revert DonateFactory__NotEnoughEth();
         }
 
-
+        namesArray.push(campaignName);
        funders.push(msg.sender);
         addressToAmountFunded[msg.sender]+=msg.value;
       
@@ -88,36 +89,27 @@ CreatorDetail [] creatorDetail;
         campaignNameToCreatorDetail[campaignName]=CreatorDetail(newDonate,campaignName,msg.sender);
         campaignAddressToCreatorDetail[newDonate]=CreatorDetail(newDonate,campaignName,msg.sender);
         creatorToCreatorDetail[msg.sender]=CreatorDetail(newDonate,campaignName,msg.sender);
-
-        emit campaignCreated(msg.sender,newDonate);
     }
 
     function withdraw(uint256 _amount)public onlyOwner{
-        for(uint i=0; i<funders.length; i++){
-            addressToAmountFunded[funders[i]]=0;
-        }
-        funders = new address[](0);
+      
         (bool callSuccess, )=payable(msg.sender).call{value: _amount}("");
             if(!callSuccess){
                 revert DonateFactory__CallFailed();
             }
-          emit withdrawn(msg.sender, _amount);
+          
     }
 
-    function search(address _creator, address _campaignAddress, string memory _campaignName) public{
-        // not working
-        bool isCreator = (_creator!=address(0));
-        bool isCampaignAddress = (_campaignAddress!=address(0));
-       
-       if(isCreator){
-           getCreatorToCreatorDetail(_creator);   
-       }
-       if(isCampaignAddress){
-           AddressToCreatorDetail(_campaignAddress);
-
-       }
-      
+    function searchByName( string memory _campaignName) public view returns(CreatorDetail memory){
+        return  campaignNameToCreatorDetail[_campaignName];  
     }
+    function serachByCampaignAddress(address _campaignAddress)public view returns (CreatorDetail memory){
+        return campaignAddressToCreatorDetail[_campaignAddress];
+    }
+    function searchByCreator(address _creator) public view returns (CreatorDetail memory){
+        return creatorToCreatorDetail[_creator];
+    }
+    
 
 
     function balance() public view returns(uint256){
@@ -156,16 +148,39 @@ CreatorDetail [] creatorDetail;
     function getEntranceFee() public pure returns(uint256){
         return entryFee;
     }
+    function getCreatorList(uint256 _index) public view returns(address){
+      return  creatorList[_index];
+    }
+
+    function getFundersList(uint256 _index) public view returns(address){
+        return funders[_index];
+    }
+    function getHashedName(string memory _name) public view returns(bytes memory){
+        bytes32 hashedString = keccak256(abi.encode(_name));
+        
+    }
+    function getHashedAddressList(uint256 _index) public view returns(bytes32 ){
+       return hashedAddressList[_index];
+    }
+    function getHashedAddressListLength() public view returns(uint256 ){
+        return hashedAddressList.length;
+    }
+    function getNamesArray(uint _index) public view returns(string memory){
+        return namesArray[_index];
+    }
+   
 
      receive() external payable{
-      
-    }
-    fallback()external payable{
        
     }
-
+    fallback() external payable{
+     
 
 }
+
+    }  
+
+    
 
 ///@title Fund Me
 ///@author Olaoye Salem
@@ -196,9 +211,9 @@ contract Donate{
     _;
 }
 
-  string public description;
+  string private description;
     //Campaign name of reciepient
-    string public campaignName;
+    string private campaignName;
     //number of donors in the fundraiser
     
 
@@ -224,9 +239,9 @@ contract Donate{
     ///@notice allows for withdrawing funds from contract
     ///@dev Only reciepient can withdraw funds from this contract
     ///@dev all funds can be remooved anytime
-    function withdraw() public onlyOwner {//removed onlyOwner
+    function withdraw(uint256 _amount) public onlyOwner {//removed onlyOwner
         //balance stores the amount of money in the contract at this moment
-        uint balance = address(this).balance;
+        uint balance = _amount;
       emit Fund_Withdrawn(i_owner,address(this),balance);//sends out event that contract owner/recipient have withdrew some funds
        
           (bool callSuccess, )=payable(msg.sender).call{value: balance}("");
@@ -240,7 +255,13 @@ contract Donate{
         uint256 balance = address(_address).balance;
         return balance;
     }
-
+    function getDonators(uint256 _index) public view returns(address){
+        return donators[_index];
+    }
+    function getDonorToAmount(address _donor) public view returns(uint256){
+        return donorsAmount[_donor];
+    }
+    
 
    receive() external payable{
         donate();
@@ -250,3 +271,6 @@ contract Donate{
     }
 
 }
+//720132
+//691392
+//625350

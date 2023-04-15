@@ -30,7 +30,7 @@ FunDity is designed to simplify the process of creating and managing crowdfundin
 
 ## Members Role
 
--Olaoye Salem Iyanuloluwa : Responsible for creating smart contracts,deploying,nwriting tests for the smart contract ,and co- writing the script connecting Front-End and smart contract  using web3.js
+- Olaoye Salem Iyanuloluwa : Responsible for creating smart contracts,deploying,writing tests for the smart contract ,and co- writing the script connecting Front-End and smart contract  using web3.js
 - Benjamin Easter: Responsible Writing the front-end and co-writing the script connecting Front-End and smart contract  using web3.js
 
 ## Problem

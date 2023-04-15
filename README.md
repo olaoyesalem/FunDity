@@ -66,7 +66,7 @@ Smart contracts:Fundity  can utilize smart contracts, which are self-executing c
 ## Contributors
 
 * github.com/olaoyesalem.com
-<br>  olaoyesalemgreat@gmail.com
+  olaoyesalemgreat@gmail.com
 *     synalcode@gmail.com
 
 ## Folder Structure

@@ -9,6 +9,7 @@
 * [Problem](#Problem)
 * [Proposed Solution](#proposed-solution)
 * [Benefit](#Benenfit)
+* [Market](#Market)
 * [Dependencies](#Dependencies)
 * [Technologies](#technologies)
 * [Contributors](#contributors)

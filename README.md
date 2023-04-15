@@ -68,7 +68,7 @@ Smart contracts:Fundity  can utilize smart contracts, which are self-executing c
 * github.com/olaoyesalem.com
   ,olaoyesalemgreat@gmail.com
   
-*     synalcode@gmail.com
+* sypnalcode@gmail.com
 
 ## Folder Structure
 - contracts directory: this is where all smart contacts live. 

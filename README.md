@@ -4,9 +4,18 @@
 
 
 * [General info](#general-info)
+* [Team_Members](#Team-Members)
+*  [Members Role](#Members-Role)
+* [Problem](#Problem)
+* [Proposed Solution](#proposed-solution)
+* [Benefit](#Benenfit)
+* [Dependencies](#Dependencies)
 * [Technologies](#technologies)
 * [Contributors](#contributors)
 * [Status](#status)
+
+
+
 
 ## General info
 

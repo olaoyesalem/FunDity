@@ -30,6 +30,11 @@ BENJAMIN EASTER, sypnalcode@gmail.com
 -Olaoye Salem Iyanuloluwa : Responsible for creating smart contracts,deploying,nwriting tests for the smart contract ,and co- writing the script connecting Front-End and smart contract  using web3.js
 - Benjamin Easter: Responsible Writing the front-end and co-writing the script connecting Front-End and smart contract  using web3.js
 
+## Problem
+Currently,The lack of transparency in traditional fundraising methods can make it difficult for donors and backers to track the flow of funds and ensure they are being used appropriately. This can create challenges in establishing trust between fundraisers and donors.Also, traditional fundraising methods may not be accessible to everyone due to their stringent requirements, which can exclude individuals and organizations that could benefit from fundraising.Lastly,traditional fundraising methods may come with high fees and transaction costs, which can eat into the funds raised and make it more difficult to meet fundraising goals.
+
+## Benefits
+FunDity offers a more accessible and cost-effective fundraising solution, without the need for collateral or an established credit history. It can provide a transparent and secure fundraising process, making it easier for donors and backers to contribute with confidence. Additionally, Fundity can offer a broader reach, connecting fundraisers with a global community of potential backers and supporters.
 
 ## Technologies
 * Solidity

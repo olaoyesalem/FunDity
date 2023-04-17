@@ -1,10 +1,9 @@
-
 import {
     donateFactoryAddress,
     donateAddress,
-    donateFactoryABI ,
+    donateFactoryABI,
     donateABI,
-} from '../html-Donate/constant.js'
+} from '../front-End-Donate/constant.js'
 import { ethers } from './ethers-5.6.esm.min.js'
 
 const connectButton = document.getElementById('connectButton')
@@ -16,25 +15,23 @@ fundButton.onclick = fund
 const withdrawButton = document.getElementById('withdrawButton')
 withdrawButton.onclick = withdraw
 
-const balanceButton = document.getElementById("balanceButton")
+const balanceButton = document.getElementById('balanceButton')
 balanceButton.onclick = balance
 
-const createCampaignButton = document.getElementById("campaignButton")
+const createCampaignButton = document.getElementById('campaignButton')
 createCampaignButton.onclick = createCampaign
 
-
-const fundAddressButton = document.getElementById("fundAddressButton")
+const fundAddressButton = document.getElementById('fundAddressButton')
 fundAddressButton.onclick = fundAddress
 
-const withdrawAddressButton = document.getElementById("withdrawAddressButton")
+const withdrawAddressButton = document.getElementById('withdrawAddressButton')
 withdrawAddressButton.onclick = withdrawAddresss
 
-const getBalanceButton = document.getElementById("getBalanceButton")
+const getBalanceButton = document.getElementById('getBalanceButton')
 getBalanceButton.onclick = getBalance
 
-
-
-
+const searchButton = document.getElementById('searchButton')
+searchButton.onclick = search
 
 function listenForTxnMine(txnResponse, provider) {
     // this is to listen to the blockchain and see events that has happened
@@ -96,77 +93,83 @@ async function withdraw() {
         console.log(`-------------------------------------`)
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
+        console.log(`Signer:${signer.toString()}`)
         const contract = new ethers.Contract(
             donateFactoryAddress,
             donateFactoryABI,
             signer
         )
+        const owner = contract.getOwner()
+        console.log(`owner: ${owner}`)
         const txnResponse = await contract.withdraw()
+
         await listenForTxnMine(txnResponse, provider)
         console.log(`-------------------------------------`)
         console.log(`Withdrawn........`)
     }
 }
 
-
 async function balance() {
     if (typeof window.ethereum !== 'undefined') {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
         const balance = await provider.getBalance(donateFactoryAddress)
-        console.log(` Balance : ${ ethers.utils.formatEther(balance)} eth`)
-
+        console.log(` Balance : ${ethers.utils.formatEther(balance)} eth`)
     }
 }
 
-
-async function createCampaign(){
+async function createCampaign() {
     // Once this has been created it should go to a new page(index.html in createCampaign folder) and give the right details
-    let Address,addressName,description
-     addressName =document.getElementById("addressName").value
-     description = document.getElementById("description").value
-    if(typeof window.ethereum !== "undefined"){
+    let Address, addressName, description
+    const sendValue = ethers.utils.parseEther('0.1')
+    addressName = document.getElementById('addressName').value
+    description = document.getElementById('description').value
+    if (typeof window.ethereum !== 'undefined') {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
-        const txnResponse = await contract.createDonate(addressName,description)
-        await txnResponse.wait(1);
-         Address = await contract.nameToAddress(addressName)
+        const signer = provider.getSigner()
+        const contract = new ethers.Contract(
+            donateFactoryAddress,
+            donateFactoryABI,
+            signer
+        )
+        const txnResponse = await contract.createDonate(
+            addressName,
+            description,
+            { value: sendValue }
+        )
+        await txnResponse.wait(1)
+        Address = await contract.getNameToAddress(addressName)
         console.log(` Suceesfully Created A campaign at ${Address}`)
-       
-}
-    
+    }
 }
 
-async function fundAddress(){
+async function fundAddress() {
     const ethAmount = document.getElementById('ethAmount').value
-    let Address, 
-    addressName = document.getElementById("addressName").value;
-    
-     // the name of the campaign i.e addressName is maaped to the corresponding address
-        // the addressName is gotten when the a user clicks any address it wants to fund from the front end,
-        // then the name of the campaign a user wants to fund is passed in ass address name
+    let Address,
+        addressName = document.getElementById('addressName').value
 
+    // the name of the campaign i.e addressName is maaped to the corresponding address
+    // the addressName is gotten when the a user clicks any address it wants to fund from the front end,
+    // then the name of the campaign a user wants to fund is passed in ass address name
 
-    if (typeof window.ethereum !== "undefined"){
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-    
-        // this contractFactory is an instance of donateFactory,we get the factory once again here necause we want to get 
-        // a maaping that gives us the address we want to transfer to : nameToAddress(addressName)  
-        const contractFactory = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
-       
+    if (typeof window.ethereum !== 'undefined') {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+
+        // this contractFactory is an instance of donateFactory,we get the factory once again here necause we want to get
+        // a maaping that gives us the address we want to transfer to : nameToAddress(addressName)
+        const contractFactory = new ethers.Contract(
+            donateFactoryAddress,
+            donateFactoryABI,
+            signer
+        )
+
         Address = await contractFactory.nameToAddress(addressName) //addressName:
         // the name of the campaign i.e addressName is maaped to the corresponding address
         // the addressName is gotten when the a user clicks any address it wants to fund from the front end,
         // then the name of the campaign a user wants to fund is passed in ass address name
 
-        const contract = new ethers.Contract(
-            Address, 
-            donateABI,
-            signer
-        )
-       
+        const contract = new ethers.Contract(Address, donateABI, signer)
 
         try {
             const txnResponse = await contract.donate({
@@ -179,52 +182,98 @@ async function fundAddress(){
         } catch (error) {
             console.log(error)
         }
-
     }
 }
 
-
-async function withdrawAddresss(){
-    let Address, 
-    addressName = document.getElementById("addressName").value;
+async function withdrawAddresss() {
+    let Address,
+        addressName = document.getElementById('addressName').value
 
     if (typeof window.ethereum !== 'undefined') {
         console.log(` Withdrawing!!!!!!!!!!!`)
         console.log(`-------------------------------------`)
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
-        const contractFactory = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
-
-        Address = await contractFactory.nameToAddress(addressName) 
-
-        const contract = new ethers.Contract(
-             Address,
-            donateABI,
+        const contractFactory = new ethers.Contract(
+            donateFactoryAddress,
+            donateFactoryABI,
             signer
         )
+
+        Address = await contractFactory.nameToAddress(addressName)
+
+        const contract = new ethers.Contract(Address, donateABI, signer)
 
         const txnResponse = await contract.withdraw()
         await listenForTxnMine(txnResponse, provider)
         console.log(`-------------------------------------`)
         console.log(`Withdrawn........`)
     }
-
-
 }
 
-
-async function getBalance(){
-    let Address, 
-    addressName = document.getElementById("addressName").value;
+async function getBalance() {
+    let Address,
+        addressName = document.getElementById('addressName').value
     if (typeof window.ethereum !== 'undefined') {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
-        const contractFactory = new ethers.Contract(donateFactoryAddress,donateFactoryABI,signer)
-        Address = await contractFactory.nameToAddress(addressName) 
+        const contractFactory = new ethers.Contract(
+            donateFactoryAddress,
+            donateFactoryABI,
+            signer
+        )
+        Address = await contractFactory.nameToAddress(addressName)
         const balance = await provider.getBalance(Address)
-        console.log(` Balance : ${ ethers.utils.formatEther(balance)} eth`)
-
+        console.log(` Balance : ${ethers.utils.formatEther(balance)} eth`)
     }
-
 }
 
+async function search() {
+    let creatorDetail
+    const input = document.getElementById('search').value
+
+    if (typeof window.ethereum !== 'undefined') {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+        const contract = new ethers.Contract(
+            donateFactoryAddress,
+            donateFactoryABI,
+            signer
+        )
+
+        // search by Name
+        const lengthOfNames = await contract.getHashedAddressListLength()
+        const hashedName = await contract.getHashedName(input.toString())
+
+        // search by Camapign Address
+        const lengthOfAddresses = await contract.getAddressLength()
+        
+
+        //serachByCampaignAddress
+        for (let i = 0; i < lengthOfNames; i++) {
+            if (hashedName == (await contract.getHashedAddressList(i))) {
+                const name = await contract.getNamesArray(0)
+                creatorDetail = await contract.searchByName(name)
+
+                console.log(creatorDetail)
+            }
+        }
+
+        // search by Campaign Address
+        for (let i = 0; i < lengthOfAddresses; i++) {
+            if (input == (await contract.getCreatorList(i))) {
+                creatorDetail = await contract.serachByCampaignAddress(input)
+                console.log(creatorDetail)
+            }
+        }
+
+        //search by creator
+        for (let i = 0; i < lengthOfAddresses; i++) {
+            if (input == (await contract.getListOfCampaignCreators(i))) {
+                
+                creatorDetail = await contract.searchByCreator(input)
+                console.log(creatorDetail)
+            }
+        }
+    }
+}

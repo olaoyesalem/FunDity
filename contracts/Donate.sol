@@ -10,6 +10,7 @@ error DonateFactory__FundBeforeCreatingCampaign();
 error DonateFactory__CallFailed();
 error Donate__CallFailed();
 error Donate__NotOwner();
+
 /// @title Donate factory contract
 /// @author Olaoye Salem
 /// @notice A factory contract for the main FundMe contract
@@ -20,7 +21,9 @@ string [] private namesArray;
   uint256 immutable private entryFee=10**16;
     address [] private funders;  
   address private immutable i_owner;
-  bytes32 [] private hashedAddressList;
+  address [] private listOfCreators;
+  
+  bytes32 [] hashedAddressList;
   mapping(string=>address)private nameToAddress;
   mapping(address=>uint256) private addressToAmountFunded;
   mapping(address=>address) private creatorToCampaignCreated;
@@ -28,8 +31,11 @@ string [] private namesArray;
   mapping (address=> CreatorDetail) private campaignAddressToCreatorDetail;
   mapping (address=> CreatorDetail) private creatorToCreatorDetail;
 
+  /* EVENTS */
+event campaignCreated(address indexed creator, address indexed campaign);
+event withdrawn(address indexed _to, uint256 indexed _amount);
 
-CreatorDetail []  private creatorDetail;
+CreatorDetail [] creatorDetail;
   struct CreatorDetail{
       address campaignAddress;
       string campaignName;
@@ -82,6 +88,7 @@ CreatorDetail []  private creatorDetail;
         hashedAddressList.push(hashedString);
 
         address newDonate = address(new Donate(campaignName,  _description,msg.sender));
+        listOfCreators.push(msg.sender);
         creatorList.push(newDonate); 
         creatorDetail.push(CreatorDetail(newDonate,campaignName,msg.sender));
         nameToAddress[campaignName]=newDonate;
@@ -155,8 +162,9 @@ CreatorDetail []  private creatorDetail;
     function getFundersList(uint256 _index) public view returns(address){
         return funders[_index];
     }
-    function getHashedName(string memory _name) public view returns(bytes memory){
+    function getHashedName(string memory _name) public view returns(bytes32 ){
         bytes32 hashedString = keccak256(abi.encode(_name));
+        return hashedString;
         
     }
     function getHashedAddressList(uint256 _index) public view returns(bytes32 ){
@@ -165,10 +173,19 @@ CreatorDetail []  private creatorDetail;
     function getHashedAddressListLength() public view returns(uint256 ){
         return hashedAddressList.length;
     }
-    function getNamesArray(uint _index) public view returns(string memory){
+    function getNamesArray(uint256 _index) public view returns(string memory){
         return namesArray[_index];
     }
-   
+    function getAddressLength () public view returns(uint256){
+        return creatorList.length;
+    }
+
+    function getListOfCampaignCreators(uint256 _index)public view returns(address){
+        return listOfCreators[_index];
+    }
+   function getSender() public view returns(address){
+    return msg.sender;
+   }
 
      receive() external payable{
        

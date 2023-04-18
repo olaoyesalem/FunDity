@@ -1,20 +1,5 @@
 # FunDity✔✔🎗💰
 
-## **Table Of Contents**
-
-
-* [General info](#general-info)
-* [Team_Members](#Team-Members)
-*  [Members Role](#Members-Role)
-* [Problem](#Problem)
-* [Proposed Solution](#proposed-solution)
-* [Benefit](#Benenfit)
-* [Market](#Market)
-* [Dependencies](#Dependencies)
-* [Technologies](#technologies)
-* [Contributors](#contributors)
-* [Folder Structure](#Folder Structure)
-* [Status](#status)
 
 
 

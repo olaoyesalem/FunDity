@@ -47,34 +47,13 @@ Smart contracts:Fundity  can utilize smart contracts, which are self-executing c
 ## Technologies
 * Solidity
 * Remix-IDE
+* ethers.js
+* bunzz
+* hardhat
 
 
 
-## Contributors
 
-* github.com/olaoyesalem.com
- olaoyesalemgreat@gmail.com
-  
-* sypnalcode@gmail.com
-
-## Folder Structure
-- contracts directory: this is where all smart contacts live. 
-
-- deploy directory: this is where all the scripts used to deploy the smart contract is written.
-
-- node_modules directory: this is the home of all of our Node dependencies.
-
-- utils directory: this is where we added some utility files.
-  script directory: this is where we'll write scripts for our smart contracts.
-
-- test directory: this is where all tests for smart contracts are written
-
-- html-Donate directory: this is where all the front-end code is located.
-. hardhat-config.js file :  this is the main configuration file for our hardhat project
-
-
-## Status
-This project is still under development.
 
 
 

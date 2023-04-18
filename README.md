@@ -22,7 +22,7 @@ FunDity is designed to simplify the process of creating and managing crowdfundin
 Currently,The lack of transparency in traditional fundraising methods can make it difficult for donors and backers to track the flow of funds and ensure they are being used appropriately. This can create challenges in establishing trust between fundraisers and donors.Also, traditional fundraising methods may not be accessible to everyone due to their stringent requirements, which can exclude individuals and organizations that could benefit from fundraising.Lastly,traditional fundraising methods may come with high fees and transaction costs, which can eat into the funds raised and make it more difficult to meet fundraising goals.
 
 ## Proposed-Solution
-with a deposit of 0.01 eth,FunDity allows users to create campaign easily and seamlessly making crowdunding for business , organizations, individuals easier,transparent,secure and exposed to a global community.
+FunDity allows users to create campaign easily and seamlessly making crowdunding for business , organizations, individuals easier,transparent,secure and exposed to a global community.It is aimedand  designed to simplify the process of creating and managing crowdfunding campaigns on the blockchain
 
 
 ## Market

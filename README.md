@@ -3,7 +3,8 @@
 
 
 
-
+![fundity_logo](https://user-images.githubusercontent.com/89555234/232928140-95891d08-f3b6-444c-bac3-d1fbfef91a3c.PNG)
+# FUNDITY - A CROWDFUNDING CAMPAIGN CREATOR APPLICATION
 ## General info
 
 FunDity is designed to simplify the process of creating and managing crowdfunding campaigns on the blockchain. It automatically generates a unique Ethereum address associated with each campaign, provides a dashboard for tracking campaign progress, and includes features like a built-in wallet and social sharing capabilities to make the process more user-friendly. Overall, this dApp provides a convenient and streamlined way for individuals and organizations to create and manage crowdfunding campaigns,funds on the blockchain.

@@ -27,9 +27,9 @@ const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY;
 // 			chainId:31337,
 // 			accounts:[LOCAL_HOST_PRIVATE_KEY]
 //     },
-    goerli:{
+    sepolia:{
       url:SEPOLIA_URL,
-      chainId:11155111,
+      chainId:5,
       accounts:[SEPOLIA_PRIVATE_KEY]
     }
   },

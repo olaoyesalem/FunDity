@@ -88,21 +88,23 @@ async function fund() {
 }
 
 async function withdraw() {
+    let value  = document.getElementById('ethAmount').value
+   const withdrawValue = ethers.utils.parseEther("0.1")
+    console.log(value)
     if (typeof window.ethereum !== 'undefined') {
         console.log(` Withdrawing!!!!!!!!!!!`)
         console.log(`-------------------------------------`)
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
-        console.log(`Signer:${signer.toString()}`)
+        console.log(`Signer:${signer}`)
         const contract = new ethers.Contract(
             donateFactoryAddress,
             donateFactoryABI,
             signer
         )
-        const owner = contract.getOwner()
-        console.log(`owner: ${owner}`)
-        const txnResponse = await contract.withdraw()
-
+      console.log("1")
+        const txnResponse = await contract.withdraw(0)
+            console.log("1")
         await listenForTxnMine(txnResponse, provider)
         console.log(`-------------------------------------`)
         console.log(`Withdrawn........`)

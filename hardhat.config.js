@@ -1,11 +1,11 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 require('hardhat-deploy');
-
+require("solidity-coverage");
 /** @type import('hardhat/config').HardhatUserConfig */
 
-const GOERLI_URL = process.env.GOERLI_URL; 
-const GOERLI_PRIVATE_KEY = process.env.GOERLI_PRIVATE_KEY; 
+const SEPOLIA_URL = process.env.SEPOLIA_URL; 
+const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY; 
  
  
 	module.exports={
@@ -28,10 +28,19 @@ const GOERLI_PRIVATE_KEY = process.env.GOERLI_PRIVATE_KEY;
 // 			accounts:[LOCAL_HOST_PRIVATE_KEY]
 //     },
     goerli:{
-      url:"https://eth-goerli.g.alchemy.com/v2/yBl1GLQbYHqEd6W7zkwDknWKYazYLM5J",
-      chainId:5,
-      accounts:["0x1ce924de5f8bc4ccd20286da28f5b33a58d7443b659ceb509273d84e15dbf914"]
+      url:SEPOLIA_URL,
+      chainId:11155111,
+      accounts:[SEPOLIA_PRIVATE_KEY]
     }
-  }
+  },
+namedAccounts: {
+		deployer: {
+			default: 0,
+			11155111:0
+		},
+		player: {
+			default: 1,
+		},
+	},
   
 };

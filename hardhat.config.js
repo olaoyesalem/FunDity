@@ -29,7 +29,7 @@ const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY;
 //     },
     sepolia:{
       url:SEPOLIA_URL,
-      chainId:5,
+      chainId:11155111,
       accounts:[SEPOLIA_PRIVATE_KEY]
     }
   },

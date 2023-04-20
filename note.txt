@@ -15,5 +15,8 @@ AND Audit
 AND POST ON CONSENSYS
 // Make them transfer any amount to the contract
 
-It is not working on sepolia,
+It is not working on sepolia, 
 make it working
+
+It is fucking workinmh
+with seoplia evrything

@@ -89,7 +89,7 @@ async function fund() {
 
 async function withdraw() {
     let value  = document.getElementById('ethAmount').value
-   const withdrawValue = ethers.utils.parseEther("0.1")
+   const withdrawValue = ethers.utils.parseEther(value)
     console.log(value)
     if (typeof window.ethereum !== 'undefined') {
         console.log(` Withdrawing!!!!!!!!!!!`)
@@ -102,9 +102,9 @@ async function withdraw() {
             donateFactoryABI,
             signer
         )
-      console.log("1")
-        const txnResponse = await contract.withdraw(0)
-            console.log("1")
+    
+        const txnResponse = await contract.withdraw(withdrawValue)
+      
         await listenForTxnMine(txnResponse, provider)
         console.log(`-------------------------------------`)
         console.log(`Withdrawn........`)
@@ -210,7 +210,7 @@ async function withdrawAddresss() {
         const contract = new ethers.Contract(Address, donateABI, signer)
         console.log(Address)
 
-        const txnResponse = await contract.withdraw({value:ethers.utils.parseEther(withdrawValue.toString())})
+        const txnResponse = await contract.withdraw(ethers.utils.parseEther(withdrawValue))
         await listenForTxnMine(txnResponse, provider)
         console.log(`-------------------------------------`)
         console.log(`Withdrawn........`)

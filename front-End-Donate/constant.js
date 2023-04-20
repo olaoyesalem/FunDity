@@ -1,5 +1,5 @@
-export const donateFactoryAddress = '0x02E5b3E193FCa7d505A35512c8B454C6Ec4A1dEF'
-export const donateAddress = 'x8cE14941603b05f196F64Befb7A46B7A5714615F'
+export const donateFactoryAddress = '0x50c4c82173D418879Fb006d08c162a21b34b083d'
+export const donateAddress = '0x25196bfF2a44a378f795Ef6945Bb0268B5e35Fe9'
 
 export const donateFactoryABI =[
   {

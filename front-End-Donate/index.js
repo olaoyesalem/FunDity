@@ -157,14 +157,14 @@ async function fundAddress() {
         const signer = provider.getSigner()
 
         // this contractFactory is an instance of donateFactory,we get the factory once again here necause we want to get
-        // a maaping that gives us the address we want to transfer to : nameToAddress(addressName)
+        // a maaping that gives us the address we want to transfer to : getNameToAddress(addressName)
         const contractFactory = new ethers.Contract(
             donateFactoryAddress,
             donateFactoryABI,
             signer
         )
 
-        Address = await contractFactory.nameToAddress(addressName) //addressName:
+        Address = await contractFactory.getNameToAddress(addressName) //addressName:
         // the name of the campaign i.e addressName is maaped to the corresponding address
         // the addressName is gotten when the a user clicks any address it wants to fund from the front end,
         // then the name of the campaign a user wants to fund is passed in ass address name
@@ -186,8 +186,10 @@ async function fundAddress() {
 }
 
 async function withdrawAddresss() {
-    let Address,
+    let Address,withdrawValue,addressName
         addressName = document.getElementById('addressName').value
+        withdrawValue = document.getElementById('ethAmount').value
+
 
     if (typeof window.ethereum !== 'undefined') {
         console.log(` Withdrawing!!!!!!!!!!!`)
@@ -200,11 +202,13 @@ async function withdrawAddresss() {
             signer
         )
 
-        Address = await contractFactory.nameToAddress(addressName)
-
+        Address = await contractFactory.getNameToAddress(addressName)
+        
+        
         const contract = new ethers.Contract(Address, donateABI, signer)
+        console.log(Address)
 
-        const txnResponse = await contract.withdraw()
+        const txnResponse = await contract.withdraw({value:ethers.utils.parseEther(withdrawValue.toString())})
         await listenForTxnMine(txnResponse, provider)
         console.log(`-------------------------------------`)
         console.log(`Withdrawn........`)
@@ -222,7 +226,7 @@ async function getBalance() {
             donateFactoryABI,
             signer
         )
-        Address = await contractFactory.nameToAddress(addressName)
+        Address = await contractFactory.getNameToAddress(addressName)
         const balance = await provider.getBalance(Address)
         console.log(` Balance : ${ethers.utils.formatEther(balance)} eth`)
     }

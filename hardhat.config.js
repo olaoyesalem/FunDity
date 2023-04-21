@@ -4,8 +4,8 @@ require('hardhat-deploy');
 require("solidity-coverage");
 /** @type import('hardhat/config').HardhatUserConfig */
 
-const SEPOLIA_URL = process.env.SEPOLIA_URL; 
-const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY; 
+const GOERLI_URL = process.env.GOERLI_URL; 
+const GOERLI_PRIVATE_KEY = process.env.GOERLI_PRIVATE_KEY; 
  
  
 	module.exports={
@@ -28,15 +28,15 @@ const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY;
 // 			accounts:[LOCAL_HOST_PRIVATE_KEY]
 //     },
     sepolia:{
-      url:SEPOLIA_URL,
-      chainId:11155111,
-      accounts:[SEPOLIA_PRIVATE_KEY]
+      url:GOERLI_URL,
+      chainId:5,
+      accounts:[GOERLI_PRIVATE_KEY]
     }
   },
 namedAccounts: {
 		deployer: {
 			default: 0,
-			11155111:0
+			5:0
 		},
 		player: {
 			default: 1,

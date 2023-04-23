@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FunDity</title>
     <link rel="stylesheet" href="Ben_styles.css">
-    <script src="https://kit.fontawesome.com/5ea37cccba.js" crossorigin="anonymous"></script>
+    
+    <!--<script src="https://kit.fontawesome.com/5ea37cccba.js" crossorigin="anonymous"></script>-->
     <script src="./index.js" type="module"></script>
     <script>
+        
         function create(){
             document.querySelector('#create').style.display='none'
             document.querySelector("#create").innerHTML=document.querySelector('#create-form').innerHTML
             document.querySelector('#create-form').style.display ='block'
         }
         function createCampaign(){
+            
             document.getElementById('dashBoard').style.display='flex';
             document.querySelector("#main").style.height = '450px'
             document.querySelector('.container').style.display='none'
@@ -22,7 +25,7 @@
             document.querySelector('#create').style.display='none'
             document.getElementById('dashBoard2').style.display='none'
             document.querySelector("#create").innerHTML=document.getElementById('dashBoard').innerHTML
-            
+       
             
         }
         function withdrawF(){
@@ -71,6 +74,7 @@
             </div>
 
             <div>
+               
                 <!-- I just want to check if the Create Campaign button is working -->
                 <button id="campaignButton">createCampaign </button>
                 >
@@ -92,18 +96,22 @@
             
             <div id="create">
                 <h1 class="gradient-text">Create a Campaign <br> with just one Click</h1>
-                <button id="create-button" onclick="create()">Create Campaign</button>
+                <button id="createCampaignButton" onclick="create()">Create Campaign</button>
             </div>
-            <div id="create-form" style="display:none">
+            <div id="create-form" style="">
 
-                <button>Campaign Name</button><br>
+                <button id="addressName">Campaign Name</button><br>
                 <input ><br><br>
-                <button>Fund Address</button><br>
-                <input placeholder="0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"><br><br>
-                <button>Campaign Purpose</button><br>
-                <textarea></textarea><br><br>
-                <button>Back</button>
-                <button onclick="createCampaign()">Create</button>
+                <button id="description">Description</button><br>
+                <input placeholder="0x....."><br><br>
+                <button id="createCampaignButton">createCampaign </button>
+        
+               
+                <!-- <label for="createCampaign">Campaign Name</label>
+                <input id="addressName" placeholder=" e.g. John Limited "/>
+                <label for="createCampaign">Description</label><br><br>
+                <input id="description" placeholder=" e.g. John Limited "/>
+                <button onclick="createCampaign()">CreateCheck</button> -->
             </div>
            
             <div id="dashBoard" style="display:none">

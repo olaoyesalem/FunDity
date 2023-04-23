@@ -18,20 +18,20 @@ withdrawButton.onclick = withdraw
 const balanceButton = document.getElementById('balanceButton')
 balanceButton.onclick = balance
 
-const createCampaignButton = document.getElementById('campaignButton')
+// const createCampaignButton = document.getElementById('campaignButton')
+// createCampaignButton.onclick = createCampaign
+
+const createCampaignButton = document.getElementById('createCampaignButton')
 createCampaignButton.onclick = createCampaign
 
-const fundAddressButton = document.getElementById('fundAddressButton')
-fundAddressButton.onclick = fundAddress
+// const withdrawAddressButton = document.getElementById('withdrawAddressButton')
+// withdrawAddressButton.onclick = withdrawAddresss
 
-const withdrawAddressButton = document.getElementById('withdrawAddressButton')
-withdrawAddressButton.onclick = withdrawAddresss
+// const getBalanceButton = document.getElementById('getBalanceButton')
+// getBalanceButton.onclick = getBalance
 
-const getBalanceButton = document.getElementById('getBalanceButton')
-getBalanceButton.onclick = getBalance
-
-const searchButton = document.getElementById('searchButton')
-searchButton.onclick = search
+// const searchButton = document.getElementById('searchButton')
+// searchButton.onclick = search
 
 let account
 

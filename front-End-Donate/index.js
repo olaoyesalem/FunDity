@@ -33,6 +33,8 @@ getBalanceButton.onclick = getBalance
 const searchButton = document.getElementById('searchButton')
 searchButton.onclick = search
 
+let account
+
 function listenForTxnMine(txnResponse, provider) {
     // this is to listen to the blockchain and see events that has happened
     console.log(`Mining ${txnResponse.hash} hash`)
@@ -51,11 +53,12 @@ function listenForTxnMine(txnResponse, provider) {
 async function connect() {
     if (typeof window.ethereum !== 'undefined') {
         try {
-            await window.ethereum.request({ method: 'eth_requestAccounts' })
+           account =  await window.ethereum.request({ method: 'eth_requestAccounts' }) //changed This part
         } catch (error) {
             console.log(error)
         }
-        connectButton.innerHTML = 'CONNECTED!!!!!!!'
+        connectButton.innerHTML = account // and this part
+    
     } else {
         connectButton.innerHTML = 'Install Metamask !!!!'
     }
@@ -123,7 +126,7 @@ async function balance() {
 async function createCampaign() {
     // Once this has been created it should go to a new page(index.html in createCampaign folder) and give the right details
     let Address, addressName, description
-    const sendValue = ethers.utils.parseEther('0.1')
+    const sendValue = ethers.utils.parseEther('0.01')// changed this to 0.01
     addressName = document.getElementById('addressName').value
     description = document.getElementById('description').value
     if (typeof window.ethereum !== 'undefined') {

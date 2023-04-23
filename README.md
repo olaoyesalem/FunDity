@@ -5,6 +5,7 @@
 ### A BUNNZ X WEB3AFRIKA HACKHATHON PROJECT 
 
 
+
 FunDity is designed to simplify the process of creating and managing crowdfunding campaigns on the blockchain. It automatically generates a unique Ethereum address associated with each campaign, provides a dashboard for tracking campaign progress, and includes features like a built-in wallet and social sharing capabilities to make the process more user-friendly. Overall, this dApp provides a convenient and streamlined way for individuals and organizations to create and manage crowdfunding campaigns,funds on the blockchain.
 
 ![fundity_one](https://user-images.githubusercontent.com/89555234/232927717-7fda2217-2798-48c2-862f-6e15fa4eb934.PNG)
@@ -55,7 +56,8 @@ Smart contracts:Fundity  can utilize smart contracts, which are self-executing c
 * bunzz
 * hardhat
 
-
+## BUNZZ
+![bunzz_Deploy](https://user-images.githubusercontent.com/89555234/233815894-f81b12ff-e017-4136-80f8-b0309dd6e05b.PNG)
 
 
 

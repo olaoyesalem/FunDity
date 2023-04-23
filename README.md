@@ -4,10 +4,16 @@
 ## FUNDITY - A CROWDFUNDING CAMPAIGN CREATOR APPLICATION
 ### A BUNNZ X WEB3AFRIKA HACKHATHON PROJECT 
 
+
 FunDity is designed to simplify the process of creating and managing crowdfunding campaigns on the blockchain. It automatically generates a unique Ethereum address associated with each campaign, provides a dashboard for tracking campaign progress, and includes features like a built-in wallet and social sharing capabilities to make the process more user-friendly. Overall, this dApp provides a convenient and streamlined way for individuals and organizations to create and manage crowdfunding campaigns,funds on the blockchain.
 
 ![fundity_one](https://user-images.githubusercontent.com/89555234/232927717-7fda2217-2798-48c2-862f-6e15fa4eb934.PNG)
 
+# IMPORTANT ANNOUNCEMENT!
+
+> **PLEASE NOTE :** WHEN TESTING THIS DAPP WITH IT'S URL JUST BELOW, PLEASE USE **GOERLI TESTNET **.
+
+## Project Website Link
 ## Team Members
 - **OLAOYE SALEM IYANULOLUWA** olaoyesalemgreat@gmail.com
 <br></br>

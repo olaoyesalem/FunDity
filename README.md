@@ -11,7 +11,7 @@ FunDity is designed to simplify the process of creating and managing crowdfundin
 
 # IMPORTANT ANNOUNCEMENT!
 
-> **PLEASE NOTE :** WHEN TESTING THIS DAPP WITH IT'S URL JUST BELOW, PLEASE USE **GOERLI TESTNET **.
+> **PLEASE NOTE :** WHEN TESTING THIS DAPP WITH IT'S URL JUST BELOW, PLEASE USE ** GOERLI TESTNET **.
 
 ## Project Website Link
 ## Team Members
